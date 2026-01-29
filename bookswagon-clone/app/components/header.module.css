@@ -1,0 +1,136 @@
+.header {
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-sm);
+}
+
+.topBar {
+    padding: 1.5rem 0;
+}
+
+.topBarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.logoText {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    letter-spacing: -0.5px;
+}
+
+.searchContainer {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    position: relative;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    padding-right: 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px 0 0 4px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+    border-color: var(--primary-red);
+}
+
+.searchButton {
+    background: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchButton:hover {
+    background: var(--primary-dark);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.actionItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--text-dark);
+    gap: 4px;
+}
+
+.actionItem:hover {
+    color: var(--primary-red);
+}
+
+.nav {
+    border-top: 1px solid var(--border-color);
+    background: white;
+}
+
+.navContainer {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navList {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+}
+
+.navList::-webkit-scrollbar {
+    display: none;
+}
+
+.navItem {
+    padding: 1rem 0;
+}
+
+.navItem a {
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    position: relative;
+}
+
+.navItem a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-red);
+    transition: width 0.3s;
+}
+
+.navItem a:hover {
+    color: var(--primary-red);
+}
+
+.navItem a:hover::after {
+    width: 100%;
+}

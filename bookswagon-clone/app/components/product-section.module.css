@@ -1,0 +1,75 @@
+.section {
+    padding: 4rem 0;
+    position: relative;
+    /* Alternating background sections could be done in parent, but let's keep it clean */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    /* Align baseline */
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    position: relative;
+}
+
+/* Decorative line */
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: var(--primary-red);
+}
+
+.title {
+    /* Inherits section-title from globals, but detailed localized override */
+    line-height: 1.2;
+}
+
+.seeAll {
+    color: var(--primary-red);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--primary-red);
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.seeAll:hover {
+    background: var(--primary-red);
+    color: white;
+    box-shadow: 0 4px 10px rgba(228, 43, 38, 0.3);
+    transform: translateY(-2px);
+}
+
+.scrollContainer {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    padding: 1rem 0.5rem 2rem 0.5rem;
+    /* Extra padding bottom for hover shadows */
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-red) transparent;
+}
+
+.scrollContainer::-webkit-scrollbar {
+    height: 6px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 10px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-red);
+}

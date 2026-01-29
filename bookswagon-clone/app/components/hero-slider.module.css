@@ -1,0 +1,201 @@
+.heroSection {
+    padding: 2rem 0;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 2rem;
+    height: 500px;
+}
+
+.mainSlider {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    /* Removed perspective for flatter look */
+    height: 100%;
+}
+
+.slideImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.mainSlider:hover .slideImage {
+    transform: scale(1.02);
+}
+
+.sideBanners {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+/* Main Slider Premium Polish */
+.mainSlider::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.8));
+    z-index: 1;
+}
+
+/* Side Banners Premium Upgrade */
+.sideBanner {
+    flex: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    /* softer initial shadow */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.sideBanner:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Shine Effect on Hover */
+.sideBanner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.sideBanner:hover::before {
+    left: 150%;
+    transition: 0.7s ease-in-out;
+}
+
+/* Specific Banner Styles - Enhanced Gradients */
+.examBanner {
+    background: linear-gradient(135deg, #EE6E62 0%, #D64A4A 100%);
+}
+
+.newArrivalsBanner {
+    background: linear-gradient(135deg, #5AB9EA 0%, #3B8FB8 100%);
+}
+
+/* Cleaner content layout - no box */
+.sideBannerContent {
+    text-align: left;
+    padding: 2.5rem;
+    /* More breathing room */
+    z-index: 2;
+    width: 55%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+.sideBannerImageWrapper {
+    position: absolute;
+    right: -25px;
+    bottom: -25px;
+    width: 220px;
+    /* Slightly larger */
+    height: auto;
+    z-index: 1;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy spring */
+}
+
+/* Image float animation */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-10deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(-8deg);
+    }
+}
+
+.sideBannerImage {
+    object-fit: contain;
+    filter: drop-shadow(-15px 15px 25px rgba(0, 0, 0, 0.3));
+    /* deeper shadow */
+    transform: rotate(-10deg);
+    transition: all 0.5s;
+    animation: float 6s ease-in-out infinite;
+    /* Continuous gentle float */
+}
+
+.sideBanner:hover .sideBannerImageWrapper {
+    transform: scale(1.1) rotate(5deg) translateY(-15px);
+}
+
+.sideBanner:hover .sideBannerImage {
+    filter: drop-shadow(-20px 20px 30px rgba(0, 0, 0, 0.4));
+    animation-play-state: paused;
+}
+
+.sideBannerTitle {
+    font-weight: 800;
+    /* slightly less heavy, more refined */
+    font-size: 2.2rem;
+    /* Larger */
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+    line-height: 1;
+    color: white;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sideBanner p {
+    font-weight: 500;
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.4;
+}
+
+/* Glassy Button */
+.sideBannerContent::after {
+    content: 'Shop Now →';
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 0.8rem 1.5rem;
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    cursor: pointer;
+}
+
+.sideBanner:hover .sideBannerContent::after {
+    background: white;
+    color: #333;
+    /* Dark text for contrast */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-color: white;
+}
