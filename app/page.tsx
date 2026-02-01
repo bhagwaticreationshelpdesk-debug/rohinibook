@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import HeroSlider from './components/HeroSlider';
 import ProductSection from './components/ProductSection';
 import styles from './page.module.css';
@@ -260,13 +261,39 @@ export default function Home() {
         link="/category/award-winners"
       />
 
-      <div className="container" style={{ margin: '3rem auto' }}>
-        <h2 className="section-title">Featured Categories</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
-          {['Fiction', 'Business', 'Self Help', 'Biographies', 'Children'].map(cat => (
-            <div key={cat} className="category-card">
-              {cat}
-            </div>
+      <div className="container" style={{ margin: '5rem auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <h2 className="section-title" style={{ fontSize: '2.5rem' }}>Explore by Category</h2>
+          <p style={{ color: '#666', marginTop: '0.5rem' }}>Find your next great read in our curated collections</p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '2rem',
+          perspective: '1000px'
+        }}>
+          {[
+            { name: 'Fiction', icon: '📖', color: '#fdf2f2', link: '/category/fiction' },
+            { name: 'Business', icon: '💼', color: '#f0f7ff', link: '/category/business' },
+            { name: 'Self Help', icon: '✨', color: '#fefcf0', link: '/category/self-help' },
+            { name: 'Biographies', icon: '👤', color: '#f5f3ff', link: '/category/biographies' },
+            { name: 'Children', icon: '🧒', color: '#f0fdf4', link: '/category/children' },
+            { name: 'Manga', icon: '⛩️', color: '#fff1f2', link: '/category/manga' }
+          ].map(cat => (
+            <Link href={cat.link} key={cat.name} className="category-card" style={{
+              background: cat.color,
+              padding: '3rem 2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '1rem',
+              border: 'none',
+              borderRadius: '24px'
+            }}>
+              <span style={{ fontSize: '3rem' }}>{cat.icon}</span>
+              <span style={{ fontSize: '1.25rem', fontWeight: '800', color: '#333' }}>{cat.name}</span>
+            </Link>
           ))}
         </div>
       </div>

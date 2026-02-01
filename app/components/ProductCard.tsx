@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Heart } from 'lucide-react';
 import styles from './product-card.module.css';
 
 interface ProductProps {
@@ -15,6 +16,10 @@ interface ProductProps {
 export default function ProductCard({ product }: { product: ProductProps }) {
     return (
         <div className={styles.card}>
+            <div className={styles.pickupBadge}>
+                <span>✓</span> In Stock
+            </div>
+
             <Link href={`/book/${product.id}`} className={styles.imageContainer}>
                 <Image
                     src={product.image}
@@ -22,6 +27,7 @@ export default function ProductCard({ product }: { product: ProductProps }) {
                     width={220}
                     height={330}
                     className={styles.image}
+                    priority={false}
                 />
             </Link>
 
@@ -29,7 +35,7 @@ export default function ProductCard({ product }: { product: ProductProps }) {
                 <Link href={`/book/${product.id}`}>
                     <h3 className={styles.title} title={product.title}>{product.title}</h3>
                 </Link>
-                <span className={styles.author}>{product.author}</span>
+                <span className={styles.author}>by {product.author}</span>
 
                 <div className={styles.priceContainer}>
                     <div className={styles.priceWrapper}>
@@ -39,11 +45,11 @@ export default function ProductCard({ product }: { product: ProductProps }) {
                     <span className={styles.discountBadge}>{product.discount}% OFF</span>
                 </div>
 
-                <div className={styles.startWrapper}>
-                    <div className={styles.pickupBadge}>
-                        <span>✓</span> Pickup Available
-                    </div>
+                <div className={styles.actionFooter}>
                     <button className={styles.addToCartBtn}>Add to Cart</button>
+                    <button className={styles.wishlistBtn} aria-label="Add to wishlist">
+                        <Heart size={20} strokeWidth={2} />
+                    </button>
                 </div>
             </div>
         </div>
