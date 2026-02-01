@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './hero-slider.module.css';
 
 const slides = [
@@ -35,23 +34,52 @@ const slides = [
 
 export default function HeroSlider() {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+    // Minimum swipe distance in pixels
+    const minSwipeDistance = 50;
 
     const nextSlide = useCallback(() => {
         setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, []);
 
-    const prevSlide = () => {
+    const prevSlide = useCallback(() => {
         setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    }, []);
+
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe) nextSlide();
+        if (isRightSwipe) prevSlide();
     };
 
     useEffect(() => {
-        const timer = setInterval(nextSlide, 3500); // 3.5s for smooth transitions
+        const timer = setInterval(nextSlide, 3500);
         return () => clearInterval(timer);
     }, [nextSlide]);
 
     return (
         <section className={`container ${styles.heroSection}`}>
-            <div className={styles.mainSlider}>
+            <div
+                className={styles.mainSlider}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+            >
                 <div className={styles.slidesWrapper}>
                     {slides.map((slide, index) => (
                         <div
@@ -90,14 +118,6 @@ export default function HeroSlider() {
                                 aria-label={`Go to slide ${index + 1}`}
                             />
                         ))}
-                    </div>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                        <button className={styles.arrowBtn} onClick={prevSlide} aria-label="Previous slide">
-                            <ChevronLeft size={24} />
-                        </button>
-                        <button className={styles.arrowBtn} onClick={nextSlide} aria-label="Next slide">
-                            <ChevronRight size={24} />
-                        </button>
                     </div>
                 </div>
             </div>
