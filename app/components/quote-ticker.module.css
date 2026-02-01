@@ -1,0 +1,79 @@
+.tickerWrapper {
+    width: 100%;
+    overflow: hidden;
+    background: #fdf2f2;
+    padding: 1.5rem 0;
+    border-top: 1px solid #fecaca;
+    border-bottom: 1px solid #fecaca;
+    margin: 2rem 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 40s linear infinite;
+}
+
+.ticker:hover {
+    animation-play-state: paused;
+}
+
+.quoteItem {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 3rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.quoteText {
+    font-style: italic;
+    color: #1a1a1a;
+}
+
+.quoteAuthor {
+    color: #E42B26;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.divider {
+    color: #E42B26;
+    font-size: 1.5rem;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Glassmorphism version if it's on a background */
+.glassTicker {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}

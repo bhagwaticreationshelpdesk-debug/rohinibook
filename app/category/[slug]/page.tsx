@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import ProductCard from '../../components/ProductCard';
 
 // Expanded Mock Data with specific categories
 const allProducts = [

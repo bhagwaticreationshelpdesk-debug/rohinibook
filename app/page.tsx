@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import HeroSlider from './components/HeroSlider';
 import ProductSection from './components/ProductSection';
+import QuoteTicker from './components/QuoteTicker';
 import styles from './page.module.css';
 
 // Mock Data - Rich Catalogue
@@ -237,8 +238,10 @@ export default function Home() {
     <div className={styles.main}>
       <HeroSlider />
 
+      <QuoteTicker />
+
       <ProductSection
-        title="Now Trending"
+        title="Trending Now"
         products={trendingBooks}
         link="/category/trending"
       />
