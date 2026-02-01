@@ -1,75 +1,66 @@
 .section {
-    padding: 4rem 0;
+    padding: 5rem 0;
     position: relative;
-    /* Alternating background sections could be done in parent, but let's keep it clean */
 }
 
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    /* Align baseline */
-    margin-bottom: 2.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--border-color);
+    align-items: center;
+    margin-bottom: 3rem;
     position: relative;
 }
 
-/* Decorative line */
-.header::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100px;
-    height: 2px;
-    background: var(--primary-red);
+.title {
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    position: relative;
 }
 
-.title {
-    /* Inherits section-title from globals, but detailed localized override */
-    line-height: 1.2;
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-red);
+    border-radius: 2px;
 }
 
 .seeAll {
-    color: var(--primary-red);
+    color: #666;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--primary-red);
-    border-radius: 50px;
-    transition: all 0.3s;
+    letter-spacing: 1px;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .seeAll:hover {
-    background: var(--primary-red);
+    background: #1a1a1a;
     color: white;
-    box-shadow: 0 4px 10px rgba(228, 43, 38, 0.3);
+    border-color: #1a1a1a;
     transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .scrollContainer {
     display: flex;
     gap: 2rem;
     overflow-x: auto;
-    padding: 1rem 0.5rem 2rem 0.5rem;
-    /* Extra padding bottom for hover shadows */
+    padding: 1rem 1rem 3rem 1rem;
+    margin: 0 -1rem;
     scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-red) transparent;
+    scrollbar-width: none;
+    /* Hide for cleaner look */
 }
 
 .scrollContainer::-webkit-scrollbar {
-    height: 6px;
-}
-
-.scrollContainer::-webkit-scrollbar-thumb {
-    background-color: #ddd;
-    border-radius: 10px;
-}
-
-.scrollContainer::-webkit-scrollbar-thumb:hover {
-    background-color: var(--primary-red);
+    display: none;
 }
