@@ -12,10 +12,6 @@ const allProducts = [
         id: '26', title: "Where the Crawdads Sing", author: "Delia Owens",
         price: 399, originalPrice: 699, discount: 43, image: "https://placehold.co/400x600/2F4F4F/FFF?text=Crawdads", category: "fiction"
     },
-    {
-        id: '27', title: "The Midnight Library", author: "Matt Haig",
-        price: 450, originalPrice: 899, discount: 50, image: "https://placehold.co/400x600/191970/FFF?text=Midnight+Library", category: "fiction"
-    },
 
     // Non-Fiction
     {
@@ -26,37 +22,57 @@ const allProducts = [
         id: '16', title: "Sapiens", author: "Yuval Noah Harari",
         price: 550, originalPrice: 999, discount: 45, image: "https://placehold.co/400x600/A52A2A/FFF?text=Sapiens", category: "non-fiction"
     },
+
+    // New Arrivals (Added missing categories linked from home)
     {
-        id: '28', title: "Educated", author: "Tara Westover",
-        price: 499, originalPrice: 899, discount: 44, image: "https://placehold.co/400x600/DAA520/FFF?text=Educated", category: "non-fiction"
+        id: '7', title: "Fourth Wing", author: "Rebecca Yarros",
+        price: 799, originalPrice: 1400, discount: 42, image: "https://placehold.co/400x600/550000/FFF?text=Fourth+Wing", category: "new arrivals"
+    },
+    {
+        id: '8', title: "Yellowface", author: "R.F. Kuang",
+        price: 599, originalPrice: 999, discount: 40, image: "https://placehold.co/400x600/FFFF00/000?text=Yellowface", category: "new arrivals"
+    },
+    {
+        id: '9', title: "Happy Place", author: "Emily Henry",
+        price: 450, originalPrice: 899, discount: 50, image: "https://placehold.co/400x600/FF69B4/FFF?text=Happy+Place", category: "new arrivals"
+    },
+
+    // Trending
+    {
+        id: '4', title: "Deep Work", author: "Cal Newport",
+        price: 399, originalPrice: 699, discount: 40, image: "https://placehold.co/400x600/FF5733/FFF?text=Deep+Work", category: "trending"
+    },
+    {
+        id: '5', title: "Thinking, Fast and Slow", author: "Daniel Kahneman",
+        price: 650, originalPrice: 1200, discount: 46, image: "https://placehold.co/400x600/33FF57/000?text=Thinking+", category: "trending"
+    },
+
+    // Best Sellers
+    {
+        id: '2', title: "Atomic Habits", author: "James Clear",
+        price: 550, originalPrice: 999, discount: 45, image: "https://placehold.co/400x600/2a2a2a/FFF?text=Atomic+Habits", category: "best sellers"
+    },
+    {
+        id: '13', title: "It Ends With Us", author: "Colleen Hoover",
+        price: 299, originalPrice: 599, discount: 50, image: "https://placehold.co/400x600/FFC0CB/000?text=It+Ends+With+Us", category: "best sellers"
+    },
+
+    // Manga
+    {
+        id: '35', title: "Naruto Vol 1", author: "Masashi Kishimoto",
+        price: 399, originalPrice: 699, discount: 43, image: "https://placehold.co/400x600/FFA500/000?text=Naruto", category: "manga"
     },
 
     // Teens & YA
     {
-        id: '7', title: "Fourth Wing", author: "Rebecca Yarros",
-        price: 799, originalPrice: 1400, discount: 42, image: "https://placehold.co/400x600/550000/FFF?text=Fourth+Wing", category: "teens-&-ya"
-    },
-    {
         id: '29', title: "Six of Crows", author: "Leigh Bardugo",
-        price: 450, originalPrice: 799, discount: 44, image: "https://placehold.co/400x600/000000/FFF?text=Six+of+Crows", category: "teens-&-ya"
-    },
-    {
-        id: '30', title: "The Hunger Games", author: "Suzanne Collins",
-        price: 399, originalPrice: 699, discount: 43, image: "https://placehold.co/400x600/FFD700/000?text=Hunger+Games", category: "teens-&-ya"
+        price: 450, originalPrice: 799, discount: 44, image: "https://placehold.co/400x600/000000/FFF?text=Six+of+Crows", category: "teens & ya"
     },
 
     // Kids
     {
         id: '31', title: "Harry Potter", author: "J.K. Rowling",
         price: 599, originalPrice: 999, discount: 40, image: "https://placehold.co/400x600/7B68EE/FFF?text=Harry+Potter", category: "kids"
-    },
-    {
-        id: '32', title: "Diary of a Wimpy Kid", author: "Jeff Kinney",
-        price: 350, originalPrice: 599, discount: 42, image: "https://placehold.co/400x600/DC143C/FFF?text=Wimpy+Kid", category: "kids"
-    },
-    {
-        id: '33', title: "Percy Jackson", author: "Rick Riordan",
-        price: 450, originalPrice: 799, discount: 44, image: "https://placehold.co/400x600/008080/FFF?text=Percy+Jackson", category: "kids"
     },
 
     // Exams
@@ -65,30 +81,10 @@ const allProducts = [
         price: 899, originalPrice: 1500, discount: 40, image: "https://placehold.co/400x600/8B0000/FFF?text=UPSC+GS", category: "exams"
     },
 
-    // Best Sellers (Can overlap, but kept simple for now)
-    {
-        id: '2', title: "Atomic Habits", author: "James Clear",
-        price: 550, originalPrice: 999, discount: 45, image: "https://placehold.co/400x600/2a2a2a/FFF?text=Atomic+Habits", category: "best-sellers"
-    },
-    {
-        id: '13', title: "It Ends With Us", author: "Colleen Hoover",
-        price: 299, originalPrice: 599, discount: 50, image: "https://placehold.co/400x600/FFC0CB/000?text=It+Ends+With+Us", category: "best-sellers"
-    },
-
     // Award Winners
     {
         id: '20', title: "Tomb of Sand", author: "Geetanjali Shree",
-        price: 599, originalPrice: 1099, discount: 45, image: "https://placehold.co/400x600/DEB887/000?text=Tomb+of+Sand", category: "award-winners"
-    },
-
-    // Manga
-    {
-        id: '35', title: "Naruto Vol 1", author: "Masashi Kishimoto",
-        price: 399, originalPrice: 699, discount: 43, image: "https://placehold.co/400x600/FFA500/000?text=Naruto", category: "manga"
-    },
-    {
-        id: '36', title: "One Piece Vol 1", author: "Eiichiro Oda",
-        price: 399, originalPrice: 699, discount: 43, image: "https://placehold.co/400x600/87CEEB/000?text=One+Piece", category: "manga"
+        price: 599, originalPrice: 1099, discount: 45, image: "https://placehold.co/400x600/DEB887/000?text=Tomb+of+Sand", category: "award winners"
     }
 ];
 
