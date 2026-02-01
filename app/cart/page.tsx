@@ -115,9 +115,9 @@ export default function CartPage() {
                         <span>Total</span>
                         <span>₹{total}</span>
                     </div>
-                    <button className={styles.checkoutBtn}>
+                    <Link href="/checkout" className={styles.checkoutBtn} style={{ textDecoration: 'none', textAlign: 'center' }}>
                         Proceed to Checkout
-                    </button>
+                    </Link>
                     <p style={{ fontSize: '0.75rem', textAlign: 'center', color: '#999', marginTop: '1rem' }}>
                         Shipping calculated at checkout.
                     </p>
