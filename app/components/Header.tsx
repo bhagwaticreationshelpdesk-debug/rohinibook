@@ -1,12 +1,51 @@
+"use client";
+
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Search, User, Heart, ShoppingBag } from 'lucide-react';
 import styles from './header.module.css';
 
 export default function Header() {
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const searchRef = useRef<HTMLDivElement>(null);
+    const router = useRouter();
+
     const categories = [
         'Fiction', 'Non-Fiction', 'Teens & YA', 'Kids', 'Exams',
         'Manga', 'Award Winners', 'New Arrivals', 'Best Sellers'
     ];
+
+    const trendingSearches = ['Atomic Habits', 'Percy Jackson', 'UPSC Guide', 'Rich Dad Poor Dad'];
+    const popularCategories = ['Fiction', 'Manga', 'Reference', 'Biographies'];
+
+    // Close search when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+                setIsSearchOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            router.push(`/category/${searchQuery.trim().toLowerCase().replace(/ /g, '-')}`);
+            setIsSearchOpen(false);
+        }
+    };
+
+    const handleSuggestionClick = (term: string) => {
+        setSearchQuery(term);
+        router.push(`/category/${term.toLowerCase().replace(/ /g, '-')}`);
+        setIsSearchOpen(false);
+    };
 
     return (
         <header className={styles.header}>
@@ -19,15 +58,46 @@ export default function Header() {
                         </Link>
                     </div>
 
-                    <div className={styles.searchContainer}>
-                        <input
-                            type="text"
-                            placeholder="Search by Title, Author, Publisher or ISBN"
-                            className={styles.searchInput}
-                        />
-                        <button className={styles.searchButton}>
-                            <Search size={22} />
-                        </button>
+                    <div className={styles.searchContainer} ref={searchRef}>
+                        <form onSubmit={handleSearch} style={{ width: '100%', display: 'flex' }}>
+                            <input
+                                type="text"
+                                placeholder="Search by Title, Author, Publisher or ISBN"
+                                className={styles.searchInput}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onClick={() => setIsSearchOpen(true)}
+                                onFocus={() => setIsSearchOpen(true)}
+                            />
+                            <button type="submit" className={styles.searchButton}>
+                                <Search size={22} />
+                            </button>
+                        </form>
+
+                        {isSearchOpen && (
+                            <div className={styles.searchOverlay}>
+                                <div className={styles.suggestionGroup}>
+                                    <h4 className={styles.suggestionTitle}>Trending Searches</h4>
+                                    <ul className={styles.suggestionList}>
+                                        {trendingSearches.map(term => (
+                                            <li key={term} className={styles.suggestionItem} onClick={() => handleSuggestionClick(term)}>
+                                                {term}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className={styles.suggestionGroup}>
+                                    <h4 className={styles.suggestionTitle}>Popular Categories</h4>
+                                    <ul className={styles.suggestionList}>
+                                        {popularCategories.map(cat => (
+                                            <li key={cat} className={styles.suggestionItem} onClick={() => handleSuggestionClick(cat)}>
+                                                {cat}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className={styles.actions}>

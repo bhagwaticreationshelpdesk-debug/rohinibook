@@ -134,3 +134,69 @@
 .navItem a:hover::after {
     width: 100%;
 }
+
+/* Search Overlay Styles */
+.searchOverlay {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: var(--shadow-lg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    z-index: 1001;
+    margin-top: 0.5rem;
+    border: 1px solid var(--border-color);
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.suggestionGroup {
+    margin-bottom: 1rem;
+}
+
+.suggestionTitle {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.suggestionList {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.suggestionItem {
+    background: #f4f6f8;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.suggestionItem:hover {
+    background: white;
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+    box-shadow: var(--shadow-sm);
+}
