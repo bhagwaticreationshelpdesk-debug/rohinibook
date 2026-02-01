@@ -21,7 +21,7 @@ const trendingBooks = [
     price: 550,
     originalPrice: 999,
     discount: 45,
-    image: "https://placehold.co/400x600/2a2a2a/FFF?text=Atomic+Habits"
+    image: "https://placehold.co/400x600/2a2a2a/FFF.png?text=Atomic+Habits"
   },
   {
     id: '3',
@@ -30,7 +30,7 @@ const trendingBooks = [
     price: 420,
     originalPrice: 750,
     discount: 44,
-    image: "https://placehold.co/400x600/123456/FFF?text=Psychology"
+    image: "https://placehold.co/400x600/123456/FFF.png?text=Psychology"
   },
   {
     id: '4',
@@ -39,7 +39,7 @@ const trendingBooks = [
     price: 399,
     originalPrice: 699,
     discount: 40,
-    image: "https://placehold.co/400x600/FF5733/FFF?text=Deep+Work"
+    image: "https://placehold.co/400x600/FF5733/FFF.png?text=Deep+Work"
   },
   {
     id: '5',
@@ -48,7 +48,7 @@ const trendingBooks = [
     price: 650,
     originalPrice: 1200,
     discount: 46,
-    image: "https://placehold.co/400x600/33FF57/000?text=Thinking+"
+    image: "https://placehold.co/400x600/33FF57/000.png?text=Thinking"
   },
   {
     id: '6',
@@ -57,7 +57,7 @@ const trendingBooks = [
     price: 410,
     originalPrice: 650,
     discount: 38,
-    image: "https://placehold.co/400x600/3357FF/FFF?text=Start+With+Why"
+    image: "https://placehold.co/400x600/3357FF/FFF.png?text=Start+With+Why"
   }
 ];
 
