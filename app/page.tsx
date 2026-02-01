@@ -69,7 +69,7 @@ const newArrivals = [
     price: 799,
     originalPrice: 1400,
     discount: 42,
-    image: "https://placehold.co/400x600/550000/FFF?text=Fourth+Wing"
+    image: "https://placehold.co/400x600/550000/FFF.png?text=Fourth+Wing"
   },
   {
     id: '8',
@@ -78,7 +78,7 @@ const newArrivals = [
     price: 599,
     originalPrice: 999,
     discount: 40,
-    image: "https://placehold.co/400x600/FFFF00/000?text=Yellowface"
+    image: "https://placehold.co/400x600/FFFF00/000.png?text=Yellowface"
   },
   {
     id: '9',
@@ -87,7 +87,7 @@ const newArrivals = [
     price: 450,
     originalPrice: 899,
     discount: 50,
-    image: "https://placehold.co/400x600/FF69B4/FFF?text=Happy+Place"
+    image: "https://placehold.co/400x600/FF69B4/FFF.png?text=Happy+Place"
   },
   {
     id: '10',
@@ -96,7 +96,7 @@ const newArrivals = [
     price: 650,
     originalPrice: 1100,
     discount: 41,
-    image: "https://placehold.co/400x600/000000/FFF?text=Hell+Bent"
+    image: "https://placehold.co/400x600/000000/FFF.png?text=Hell+Bent"
   },
   {
     id: '11',
@@ -105,7 +105,7 @@ const newArrivals = [
     price: 720,
     originalPrice: 1299,
     discount: 43,
-    image: "https://placehold.co/400x600/4B0082/FFF?text=Chain+of+Thorns"
+    image: "https://placehold.co/400x600/4B0082/FFF.png?text=Chain+of+Thorns"
   },
   {
     id: '12',
@@ -114,7 +114,7 @@ const newArrivals = [
     price: 999,
     originalPrice: 1999,
     discount: 50,
-    image: "https://placehold.co/400x600/808080/FFF?text=Spare"
+    image: "https://placehold.co/400x600/808080/FFF.png?text=Spare"
   }
 ];
 
@@ -126,7 +126,7 @@ const bestSellers = [
     price: 299,
     originalPrice: 599,
     discount: 50,
-    image: "https://placehold.co/400x600/FFC0CB/000?text=It+Ends+With+Us"
+    image: "https://placehold.co/400x600/FFC0CB/000.png?text=It+Ends+With+Us"
   },
   {
     id: '14',
@@ -135,7 +135,7 @@ const bestSellers = [
     price: 250,
     originalPrice: 499,
     discount: 49,
-    image: "https://placehold.co/400x600/FFA500/000?text=The+Alchemist"
+    image: "https://placehold.co/400x600/FFA500/000.png?text=The+Alchemist"
   },
   {
     id: '15',
@@ -144,7 +144,7 @@ const bestSellers = [
     price: 380,
     originalPrice: 650,
     discount: 42,
-    image: "https://placehold.co/400x600/800080/FFF?text=Rich+Dad"
+    image: "https://placehold.co/400x600/800080/FFF.png?text=Rich+Dad"
   },
   {
     id: '16',
@@ -153,7 +153,7 @@ const bestSellers = [
     price: 550,
     originalPrice: 999,
     discount: 45,
-    image: "https://placehold.co/400x600/A52A2A/FFF?text=Sapiens"
+    image: "https://placehold.co/400x600/A52A2A/FFF.png?text=Sapiens"
   },
   {
     id: '17',
@@ -162,7 +162,7 @@ const bestSellers = [
     price: 399,
     originalPrice: 799,
     discount: 50,
-    image: "https://placehold.co/400x600/000000/FFF?text=Silent+Patient"
+    image: "https://placehold.co/400x600/000000/FFF.png?text=Silent+Patient"
   },
   {
     id: '18',
@@ -171,19 +171,19 @@ const bestSellers = [
     price: 350,
     originalPrice: 699,
     discount: 49,
-    image: "https://placehold.co/400x600/ADD8E6/000?text=Ikigai"
+    image: "https://placehold.co/400x600/ADD8E6/000.png?text=Ikigai"
   }
 ];
 
 const awardWinners = [
   {
     id: '19',
-    title: "The Seven Moons of Maali Almeida",
+    title: "The Seven Moons",
     author: "Shehan Karunatilaka",
     price: 699,
     originalPrice: 1299,
     discount: 40,
-    image: "https://placehold.co/400x600/C0C0C0/000?text=Seven+Moons"
+    image: "https://placehold.co/400x600/C0C0C0/000.png?text=Seven+Moons"
   },
   {
     id: '20',
@@ -192,7 +192,7 @@ const awardWinners = [
     price: 599,
     originalPrice: 1099,
     discount: 45,
-    image: "https://placehold.co/400x600/DEB887/000?text=Tomb+of+Sand"
+    image: "https://placehold.co/400x600/DEB887/000.png?text=Tomb+of+Sand"
   },
   {
     id: '21',
@@ -201,7 +201,7 @@ const awardWinners = [
     price: 550,
     originalPrice: 899,
     discount: 38,
-    image: "https://placehold.co/400x600/20B2AA/FFF?text=Trust"
+    image: "https://placehold.co/400x600/20B2AA/FFF.png?text=Trust"
   },
   {
     id: '22',
@@ -210,7 +210,7 @@ const awardWinners = [
     price: 650,
     originalPrice: 1150,
     discount: 43,
-    image: "https://placehold.co/400x600/B8860B/FFF?text=Demon"
+    image: "https://placehold.co/400x600/B8860B/FFF.png?text=Demon"
   },
   {
     id: '23',
@@ -219,7 +219,7 @@ const awardWinners = [
     price: 499,
     originalPrice: 899,
     discount: 44,
-    image: "https://placehold.co/400x600/778899/FFF?text=The+Promise"
+    image: "https://placehold.co/400x600/778899/FFF.png?text=The+Promise"
   },
   {
     id: '24',
@@ -228,7 +228,7 @@ const awardWinners = [
     price: 450,
     originalPrice: 850,
     discount: 47,
-    image: "https://placehold.co/400x600/4682B4/FFF?text=Shuggie+Bain"
+    image: "https://placehold.co/400x600/4682B4/FFF.png?text=Shuggie+Bain"
   }
 ];
 
