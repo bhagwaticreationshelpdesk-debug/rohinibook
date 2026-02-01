@@ -1,19 +1,41 @@
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart } from 'lucide-react';
 import styles from './product-card.module.css';
+import { useAppContext } from '../context/AppContext';
 
-interface ProductProps {
+export interface ProductProps {
     id: string;
     title: string;
     author: string;
     price: number;
     originalPrice: number;
     image: string;
+    description?: string;
     discount: number;
 }
 
 export default function ProductCard({ product }: { product: ProductProps }) {
+    const { addToWishlist, removeFromWishlist, isInWishlist, addToCart } = useAppContext();
+    const isWishlisted = isInWishlist(product.id);
+
+    const toggleWishlist = (e: React.MouseEvent) => {
+        e.preventDefault(); // Prevent navigation to product page
+        if (isWishlisted) {
+            removeFromWishlist(product.id);
+        } else {
+            addToWishlist(product);
+        }
+    };
+
+    const handleAddToCart = (e: React.MouseEvent) => {
+        e.preventDefault();
+        addToCart(product);
+        alert(`${product.title} added to cart!`);
+    };
+
     return (
         <div className={styles.card}>
             <div className={styles.pickupBadge}>
@@ -46,12 +68,18 @@ export default function ProductCard({ product }: { product: ProductProps }) {
                 </div>
 
                 <div className={styles.actionFooter}>
-                    <button className={styles.addToCartBtn}>Add to Cart</button>
-                    <button className={styles.wishlistBtn} aria-label="Add to wishlist">
-                        <Heart size={20} strokeWidth={2} />
+                    <button onClick={handleAddToCart} className={styles.addToCartBtn}>Add to Cart</button>
+                    <button
+                        onClick={toggleWishlist}
+                        className={styles.wishlistBtn}
+                        aria-label="Add to wishlist"
+                        style={{ color: isWishlisted ? '#E42B26' : '#666' }}
+                    >
+                        <Heart size={20} strokeWidth={2} fill={isWishlisted ? 'currentColor' : 'none'} />
                     </button>
                 </div>
             </div>
         </div>
     );
 }
+

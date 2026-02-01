@@ -114,61 +114,19 @@ export default async function CategoryPage({
             {productsToDisplay.length > 0 ? (
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
                     gap: '2rem'
                 }}>
                     {productsToDisplay.map((product) => (
-                        <div key={product.id} className="category-card" style={{
-                            padding: '1rem',
-                            textAlign: 'left',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '1rem',
-                            cursor: 'default' // Override the cursor pointer from category-card class if needed for non-clickable containers
-                        }}>
-                            {/* Reusing category-card for style, but it's a product card essentially */}
-                            <Link href={`/book/${product.id}`} style={{ textDecoration: 'none' }}>
-                                <div style={{
-                                    position: 'relative',
-                                    width: '100%',
-                                    aspectRatio: '2/3',
-                                    background: '#f0f0f0',
-                                    borderRadius: '8px',
-                                    overflow: 'hidden',
-                                    marginBottom: '1rem'
-                                }}>
-                                    <Image
-                                        src={product.image}
-                                        alt={product.title}
-                                        fill
-                                        style={{ objectFit: 'cover' }}
-                                    />
-                                </div>
-
-                                <div>
-                                    <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.25rem', color: '#1a1a1a' }}>{product.title}</h3>
-                                    <p style={{ fontSize: '0.85rem', color: '#666', fontStyle: 'italic' }}>{product.author}</p>
-                                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginTop: '0.5rem' }}>
-                                        <span style={{ color: '#E42B26', fontWeight: '800' }}>₹{product.price}</span>
-                                        <span style={{ color: '#999', textDecoration: 'line-through', fontSize: '0.8rem' }}>₹{product.originalPrice}</span>
-                                        <span style={{ fontSize: '0.75rem', color: 'white', background: '#2e7d32', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>{product.discount}% OFF</span>
-                                    </div>
-                                </div>
-                            </Link>
-                            <button style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'white',
-                                border: '2px solid #E42B26',
-                                color: '#E42B26',
-                                fontWeight: '700',
-                                fontSize: '0.9rem',
-                                borderRadius: '8px',
-                                marginTop: 'auto',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s'
-                            }}>Add to Cart</button>
-                        </div>
+                        <ProductCard key={product.id} product={{
+                            id: product.id,
+                            title: product.title,
+                            author: product.author,
+                            price: product.price,
+                            originalPrice: product.originalPrice,
+                            image: product.image,
+                            discount: product.discount
+                        }} />
                     ))}
                 </div>
             ) : (

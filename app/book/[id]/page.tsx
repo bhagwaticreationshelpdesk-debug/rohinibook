@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, ShoppingBag, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
+import ProductActions from '../../components/ProductActions';
 
 // Unified mock database of products (combining data from previous files)
 const allProducts = [
@@ -91,39 +92,7 @@ export default async function ProductPage({
                         </p>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-                        <button style={{
-                            flex: '1',
-                            padding: '1rem',
-                            background: '#E42B26',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontWeight: '700',
-                            fontSize: '1rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '0.5rem',
-                            cursor: 'pointer',
-                            boxShadow: '0 4px 12px rgba(228, 43, 38, 0.3)'
-                        }}>
-                            <ShoppingBag size={20} /> Add to Cart
-                        </button>
-                        <button style={{
-                            padding: '1rem',
-                            background: 'white',
-                            border: '1px solid #ddd',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#666'
-                        }}>
-                            <Heart size={24} />
-                        </button>
-                    </div>
+                    <ProductActions product={product} />
 
                     <div style={{ marginTop: '3rem', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
                         <div style={{ textAlign: 'center', padding: '1rem', background: '#f9fafb', borderRadius: '8px' }}>

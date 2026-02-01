@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "Buy books online at best prices in India. Read book reviews & author details and more at Rohini Book Depot.",
 };
 
+import { AppContextProvider } from "./context/AppContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main className="perspective-container">{children}</main>
-        <Footer />
+        <AppContextProvider>
+          <Header />
+          <main className="perspective-container">{children}</main>
+          <Footer />
+        </AppContextProvider>
       </body>
     </html>
   );

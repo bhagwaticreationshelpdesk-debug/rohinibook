@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Search, User, Heart, ShoppingBag } from 'lucide-react';
 import styles from './header.module.css';
+import { useAppContext } from '../context/AppContext';
 
 export default function Header() {
+    const { wishlist, cart } = useAppContext();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const searchRef = useRef<HTMLDivElement>(null);
@@ -106,12 +108,22 @@ export default function Header() {
                             <span>My Account</span>
                         </Link>
                         <Link href="/wishlist" className={styles.actionItem}>
-                            <Heart size={24} strokeWidth={1.5} />
+                            <div style={{ position: 'relative' }}>
+                                <Heart size={24} strokeWidth={1.5} />
+                                {wishlist.length > 0 && (
+                                    <span style={{ position: 'absolute', top: '-8px', right: '-8px', background: '#E42B26', color: 'white', fontSize: '0.7rem', padding: '2px 6px', borderRadius: '10px' }}>{wishlist.length}</span>
+                                )}
+                            </div>
                             <span>Wishlist</span>
                         </Link>
                         <Link href="/cart" className={styles.actionItem}>
-                            <ShoppingBag size={24} strokeWidth={1.5} />
-                            <span>Cart (0)</span>
+                            <div style={{ position: 'relative' }}>
+                                <ShoppingBag size={24} strokeWidth={1.5} />
+                                {cart.length > 0 && (
+                                    <span style={{ position: 'absolute', top: '-8px', right: '-8px', background: '#E42B26', color: 'white', fontSize: '0.7rem', padding: '2px 6px', borderRadius: '10px' }}>{cart.length}</span>
+                                )}
+                            </div>
+                            <span>Cart ({cart.length})</span>
                         </Link>
                     </div>
                 </div>
