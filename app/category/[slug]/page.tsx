@@ -101,15 +101,21 @@ export default async function CategoryPage({
 
     // Filter products based on the slug
     // Ensure case-insensitive matching
-    const categoryFilter = slug.toLowerCase();
+    // Format the slug back to a readable string for searching (undoing the URL formatting)
+    const searchTerm = slug.replace(/-/g, ' ').toLowerCase();
 
-    // We filter products where the category strictly matches the slug
-    // OR if it's 'new-arrivals', maybe we show everything (or a subset)
-    const filteredProducts = allProducts.filter(p => p.category === categoryFilter);
+    // 1. Try to find products that match the category EXACTLY (case-insensitive)
+    let filteredProducts = allProducts.filter(p => p.category.toLowerCase() === searchTerm);
 
-    // Fallback if no specific products are found for the category (e.g. if we haven't mocked them yet)
-    // In a real app, this would be an API call
-    const productsToDisplay = filteredProducts.length > 0 ? filteredProducts : [];
+    // 2. If no products found by category, try searching in TITLE or AUTHOR
+    if (filteredProducts.length === 0) {
+        filteredProducts = allProducts.filter(p =>
+            p.title.toLowerCase().includes(searchTerm) ||
+            p.author.toLowerCase().includes(searchTerm)
+        );
+    }
+
+    const productsToDisplay = filteredProducts;
 
     const categoryName = slug
         .split('-')
