@@ -3,9 +3,10 @@ import styles from './footer.module.css';
 export default function Footer() {
     return (
         <footer className={styles.footer}>
-            <div className="container">
-                <div className={styles.grid}>
-                    <div>
+            <div className={`container ${styles.bookLayout}`}>
+                {/* Left Page of the Book */}
+                <div className={`${styles.page} ${styles.leftPage}`}>
+                    <div className={styles.column}>
                         <h4 className={styles.columnTitle}>Company</h4>
                         <ul className={styles.linkList}>
                             <li><Link href="/about">About Us</Link></li>
@@ -14,7 +15,7 @@ export default function Footer() {
                             <li><Link href="/contact">Contact Us</Link></li>
                         </ul>
                     </div>
-                    <div>
+                    <div className={styles.column}>
                         <h4 className={styles.columnTitle}>Policies</h4>
                         <ul className={styles.linkList}>
                             <li><Link href="/privacy">Privacy Policy</Link></li>
@@ -23,7 +24,11 @@ export default function Footer() {
                             <li><Link href="/copyright">Copyright Policy</Link></li>
                         </ul>
                     </div>
-                    <div>
+                </div>
+
+                {/* Right Page of the Book */}
+                <div className={`${styles.page} ${styles.rightPage}`}>
+                    <div className={styles.column}>
                         <h4 className={styles.columnTitle}>Help</h4>
                         <ul className={styles.linkList}>
                             <li><Link href="/payment">Payment</Link></li>
@@ -32,7 +37,7 @@ export default function Footer() {
                             <li><Link href="/faq">FAQ</Link></li>
                         </ul>
                     </div>
-                    <div>
+                    <div className={styles.column}>
                         <h4 className={styles.columnTitle}>Connect</h4>
                         <ul className={styles.linkList}>
                             <li><Link href="/affiliate">Affiliate Program</Link></li>
