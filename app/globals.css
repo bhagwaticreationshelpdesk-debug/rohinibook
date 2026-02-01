@@ -69,6 +69,7 @@ button {
   display: inline-block;
   background: linear-gradient(120deg, var(--primary-dark), var(--primary-red));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
 }

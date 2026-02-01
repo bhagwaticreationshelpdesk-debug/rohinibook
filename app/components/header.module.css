@@ -85,6 +85,7 @@
 .nav {
     border-top: 1px solid var(--border-color);
     background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .navContainer {
@@ -94,37 +95,51 @@
 
 .navList {
     display: flex;
-    gap: 2rem;
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none;
-}
-
-.navList::-webkit-scrollbar {
-    display: none;
+    justify-content: space-between;
+    /* Distribute evenly */
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow-x: visible;
+    /* Don't hide for desktop spacing */
 }
 
 .navItem {
-    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    padding: 1.1rem 0;
 }
 
 .navItem a {
-    font-weight: 500;
-    font-size: 0.9rem;
+    font-weight: 600;
+    font-size: 0.85rem;
     text-transform: uppercase;
     color: var(--text-dark);
+    letter-spacing: 0.5px;
     position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Bullet Separators */
+.navItem:not(:last-child)::after {
+    content: '•';
+    color: #ccc;
+    margin-left: 2rem;
+    font-size: 1.2rem;
+    opacity: 0.5;
 }
 
 .navItem a::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -6px;
     left: 0;
     width: 0;
     height: 2px;
     background: var(--primary-red);
-    transition: width 0.3s;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navItem a:hover {
@@ -133,6 +148,20 @@
 
 .navItem a:hover::after {
     width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .navList {
+        justify-content: flex-start;
+        gap: 2rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .navItem:not(:last-child)::after {
+        display: none;
+        /* Hide dots on mobile/tablet scroll */
+    }
 }
 
 /* Search Overlay Styles */
