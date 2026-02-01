@@ -23,7 +23,7 @@ export default function QuoteTicker() {
                 {displayQuotes.map((quote, index) => (
                     <div key={index} className={styles.quoteItem}>
                         <span className={styles.divider}>
-                            <Sparkles size={24} fill="currentColor" />
+                            <Sparkles size={18} fill="currentColor" />
                         </span>
                         <span className={styles.quoteText}>"{quote.text}"</span>
                         <span className={styles.quoteAuthor}>– {quote.author}</span>

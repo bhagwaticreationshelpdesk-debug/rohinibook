@@ -2,10 +2,10 @@
     width: 100%;
     overflow: hidden;
     background: #fdf2f2;
-    padding: 1.5rem 0;
+    padding: 0.6rem 0;
     border-top: 1px solid #fecaca;
     border-bottom: 1px solid #fecaca;
-    margin: 2rem 0;
+    margin: 0;
     position: relative;
     display: flex;
     align-items: center;
@@ -24,9 +24,9 @@
 .quoteItem {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding: 0 3rem;
-    font-size: 1.2rem;
+    gap: 1.2rem;
+    padding: 0 2.5rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #4b5563;
 }

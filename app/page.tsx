@@ -236,9 +236,9 @@ const awardWinners = [
 export default function Home() {
   return (
     <div className={styles.main}>
-      <HeroSlider />
-
       <QuoteTicker />
+
+      <HeroSlider />
 
       <ProductSection
         title="Trending Now"
