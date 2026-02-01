@@ -3,13 +3,19 @@ import Image from 'next/image';
 
 // Expanded Mock Data with specific categories
 const allProducts = [
+    // Trending
+    { id: '1', title: "The Secret Language of Flowers", author: "Eleanor Vance", price: 499, originalPrice: 899, discount: 45, image: "/book_cover_romance.png", category: "trending" },
+    { id: '2', title: "Atomic Habits", author: "James Clear", price: 550, originalPrice: 999, discount: 45, image: "https://placehold.co/400x600/2a2a2a/FFF.png?text=Atomic+Habits", category: "trending" },
+    { id: '3', title: "The Psychology of Money", author: "Morgan Housel", price: 420, originalPrice: 750, discount: 44, image: "https://placehold.co/400x600/123456/FFF.png?text=Psychology", category: "trending" },
+    { id: '4', title: "Deep Work", author: "Cal Newport", price: 399, originalPrice: 699, discount: 40, image: "https://placehold.co/400x600/FF5733/FFF.png?text=Deep+Work", category: "trending" },
+
     // Fiction
-    { id: '1', title: "The Secret Language of Flowers", author: "Eleanor Vance", price: 499, originalPrice: 899, discount: 45, image: "/book_cover_romance.png", category: "fiction" },
+    { id: '1f', title: "The Secret Language of Flowers", author: "Eleanor Vance", price: 499, originalPrice: 899, discount: 45, image: "/book_cover_romance.png", category: "fiction" },
     { id: '26', title: "Where the Crawdads Sing", author: "Delia Owens", price: 399, originalPrice: 699, discount: 43, image: "https://placehold.co/400x600/2F4F4F/FFF.png?text=Crawdads", category: "fiction" },
     { id: '40', title: "The Midnight Library", author: "Matt Haig", price: 350, originalPrice: 599, discount: 41, image: "https://placehold.co/400x600/000080/FFF.png?text=Midnight+Library", category: "fiction" },
 
     // Non-Fiction
-    { id: '3', title: "The Psychology of Money", author: "Morgan Housel", price: 420, originalPrice: 750, discount: 44, image: "https://placehold.co/400x600/123456/FFF.png?text=Psychology", category: "non-fiction" },
+    { id: '3nf', title: "The Psychology of Money", author: "Morgan Housel", price: 420, originalPrice: 750, discount: 44, image: "https://placehold.co/400x600/123456/FFF.png?text=Psychology", category: "non-fiction" },
     { id: '16', title: "Sapiens", author: "Yuval Noah Harari", price: 550, originalPrice: 999, discount: 45, image: "https://placehold.co/400x600/A52A2A/FFF.png?text=Sapiens", category: "non-fiction" },
     { id: '41', title: "Thinking, Fast and Slow", author: "Daniel Kahneman", price: 650, originalPrice: 1200, discount: 46, image: "https://placehold.co/400x600/33FF57/000.png?text=Thinking", category: "non-fiction" },
 
@@ -28,10 +34,10 @@ const allProducts = [
     { id: '47', title: "The Hunger Games", author: "Suzanne Collins", price: 350, originalPrice: 650, discount: 46, image: "https://placehold.co/400x600/FFD700/000.png?text=Hunger+Games", category: "teens & ya" },
     { id: '48', title: "Percy Jackson", author: "Rick Riordan", price: 399, originalPrice: 699, discount: 43, image: "https://placehold.co/400x600/00BFFF/FFF.png?text=Percy+Jackson", category: "teens & ya" },
 
-    // Kids
-    { id: '31', title: "The Little Astronaut", author: "Sarah Jenkins", price: 599, originalPrice: 999, discount: 40, image: "/book_cover_kids.png", category: "kids" },
-    { id: '49', title: "Harry Potter", author: "J.K. Rowling", price: 599, originalPrice: 999, discount: 40, image: "https://placehold.co/400x600/7B68EE/FFF.png?text=Harry+Potter", category: "kids" },
-    { id: '50', title: "The Gruffalo", author: "Julia Donaldson", price: 299, originalPrice: 499, discount: 40, image: "https://placehold.co/400x600/8B4513/FFF.png?text=Gruffalo", category: "kids" },
+    // Children
+    { id: '31', title: "The Little Astronaut", author: "Sarah Jenkins", price: 599, originalPrice: 999, discount: 40, image: "/book_cover_kids.png", category: "children" },
+    { id: '49', title: "Harry Potter", author: "J.K. Rowling", price: 599, originalPrice: 999, discount: 40, image: "https://placehold.co/400x600/7B68EE/FFF.png?text=Harry+Potter", category: "children" },
+    { id: '50', title: "The Gruffalo", author: "Julia Donaldson", price: 299, originalPrice: 499, discount: 40, image: "https://placehold.co/400x600/8B4513/FFF.png?text=Gruffalo", category: "children" },
 
     // Exams
     { id: '34', title: "UPSC General Studies", author: "McGraw Hill", price: 899, originalPrice: 1500, discount: 40, image: "https://placehold.co/400x600/8B0000/FFF.png?text=UPSC+GS", category: "exams" },
@@ -40,8 +46,8 @@ const allProducts = [
 
     // Self Help
     { id: '53', title: "Inner Calm", author: "Elena Rostova", price: 499, originalPrice: 899, discount: 44, image: "/book_cover_selfhelp.png", category: "self help" },
-    { id: '2', title: "Atomic Habits", author: "James Clear", price: 550, originalPrice: 999, discount: 45, image: "https://placehold.co/400x600/2a2a2a/FFF.png?text=Atomic+Habits", category: "self help" },
-    { id: '4', title: "Deep Work", author: "Cal Newport", price: 399, originalPrice: 699, discount: 40, image: "https://placehold.co/400x600/FF5733/FFF.png?text=Deep+Work", category: "self help" },
+    { id: '2sh', title: "Atomic Habits", author: "James Clear", price: 550, originalPrice: 999, discount: 45, image: "https://placehold.co/400x600/2a2a2a/FFF.png?text=Atomic+Habits", category: "self help" },
+    { id: '4sh', title: "Deep Work", author: "Cal Newport", price: 399, originalPrice: 699, discount: 40, image: "https://placehold.co/400x600/FF5733/FFF.png?text=Deep+Work", category: "self help" },
 
     // Award Winners
     { id: '20', title: "Tomb of Sand", author: "Geetanjali Shree", price: 599, originalPrice: 1099, discount: 45, image: "https://placehold.co/400x600/DEB887/000.png?text=Tomb+of+Sand", category: "award winners" },

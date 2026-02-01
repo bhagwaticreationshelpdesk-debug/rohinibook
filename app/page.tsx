@@ -252,7 +252,7 @@ export default function Home() {
       <ProductSection
         title="Best Sellers"
         products={bestSellers}
-        link="/category/bestsellers"
+        link="/category/best-sellers"
       />
 
       <ProductSection
