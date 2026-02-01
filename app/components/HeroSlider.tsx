@@ -39,16 +39,16 @@ export default function HeroSlider() {
                         />
                     </div>
                 </Link>
-                <Link href="/category/new-arrivals" className={`${styles.sideBanner} ${styles.newArrivalsBanner}`}>
+                <Link href="/category/newly-published" className={`${styles.sideBanner} ${styles.newArrivalsBanner}`}>
                     <div className={styles.sideBannerContent}>
-                        <h3 className={styles.sideBannerTitle}>New Arrivals</h3>
+                        <h3 className={styles.sideBannerTitle}>Newly Published</h3>
                         <p>Latest literary hits</p>
                         <span className={styles.shopNowBtn}>Shop Now</span>
                     </div>
                     <div className={styles.sideBannerImageWrapper}>
                         <Image
                             src="/new_arrivals_icon.png"
-                            alt="New Arrivals"
+                            alt="Newly Published Books"
                             width={160}
                             height={160}
                             className={styles.sideBannerImage}

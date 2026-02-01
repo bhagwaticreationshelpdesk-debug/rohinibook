@@ -244,9 +244,9 @@ export default function Home() {
       />
 
       <ProductSection
-        title="New Arrivals"
+        title="Newly Published"
         products={newArrivals}
-        link="/category/new-arrivals"
+        link="/category/newly-published"
       />
 
       <ProductSection

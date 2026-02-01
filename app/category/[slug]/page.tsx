@@ -23,18 +23,18 @@ const allProducts = [
         price: 550, originalPrice: 999, discount: 45, image: "https://placehold.co/400x600/A52A2A/FFF?text=Sapiens", category: "non-fiction"
     },
 
-    // New Arrivals (Added missing categories linked from home)
+    // Newly Published (Updated from new arrivals to match UI)
     {
         id: '7', title: "Fourth Wing", author: "Rebecca Yarros",
-        price: 799, originalPrice: 1400, discount: 42, image: "https://placehold.co/400x600/550000/FFF?text=Fourth+Wing", category: "new arrivals"
+        price: 799, originalPrice: 1400, discount: 42, image: "https://placehold.co/400x600/550000/FFF?text=Fourth+Wing", category: "newly published"
     },
     {
         id: '8', title: "Yellowface", author: "R.F. Kuang",
-        price: 599, originalPrice: 999, discount: 40, image: "https://placehold.co/400x600/FFFF00/000?text=Yellowface", category: "new arrivals"
+        price: 599, originalPrice: 999, discount: 40, image: "https://placehold.co/400x600/FFFF00/000?text=Yellowface", category: "newly published"
     },
     {
         id: '9', title: "Happy Place", author: "Emily Henry",
-        price: 450, originalPrice: 899, discount: 50, image: "https://placehold.co/400x600/FF69B4/FFF?text=Happy+Place", category: "new arrivals"
+        price: 450, originalPrice: 899, discount: 50, image: "https://placehold.co/400x600/FF69B4/FFF?text=Happy+Place", category: "newly published"
     },
 
     // Trending

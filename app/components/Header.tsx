@@ -14,7 +14,7 @@ export default function Header() {
 
     const categories = [
         'Fiction', 'Non-Fiction', 'Teens & YA', 'Kids', 'Exams',
-        'Manga', 'Award Winners', 'New Arrivals', 'Best Sellers'
+        'Manga', 'Award Winners', 'Newly Published', 'Best Sellers'
     ];
 
     const trendingSearches = ['Atomic Habits', 'Percy Jackson', 'UPSC Guide', 'Rich Dad Poor Dad'];
