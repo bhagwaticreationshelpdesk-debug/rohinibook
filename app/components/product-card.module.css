@@ -17,10 +17,12 @@
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    /* Significant lift */
-    box-shadow: var(--shadow-hover);
-    border-color: rgba(228, 43, 38, 0.1);
+    transform: translateY(-10px) rotateX(2deg) rotateY(-2deg);
+    /* 3D Lift */
+    box-shadow:
+        -10px 10px 20px rgba(0, 0, 0, 0.1),
+        0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: rgba(228, 43, 38, 0.2);
     z-index: 10;
 }
 

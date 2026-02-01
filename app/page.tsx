@@ -264,17 +264,7 @@ export default function Home() {
         <h2 className="section-title">Featured Categories</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
           {['Fiction', 'Business', 'Self Help', 'Biographies', 'Children'].map(cat => (
-            <div key={cat} style={{
-              padding: '2rem',
-              background: 'white',
-              border: '1px solid #eee',
-              borderRadius: '8px',
-              textAlign: 'center',
-              fontWeight: '600',
-              fontSize: '1.1rem',
-              cursor: 'pointer',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-            }}>
+            <div key={cat} className="category-card">
               {cat}
             </div>
           ))}

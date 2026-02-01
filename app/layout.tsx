@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        <main>{children}</main>
+        <main className="perspective-container">{children}</main>
         <Footer />
       </body>
     </html>
