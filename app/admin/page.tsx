@@ -42,6 +42,7 @@ export default function AdminPage() {
     const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' } | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loginError, setLoginError] = useState("");
+    const [stockFilter, setStockFilter] = useState<'all' | 'in' | 'out'>('all');
 
     // Check auth on mount
     useEffect(() => {
@@ -58,12 +59,17 @@ export default function AdminPage() {
     }, [notification]);
 
     const filteredProducts = useMemo(() => {
-        return products.filter(p =>
-            p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            p.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            p.category.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-    }, [products, searchQuery]);
+        return products.filter(p => {
+            const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                p.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                p.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+            if (stockFilter === 'all') return matchesSearch;
+            if (stockFilter === 'in') return matchesSearch && p.stock > 0;
+            if (stockFilter === 'out') return matchesSearch && p.stock === 0;
+            return matchesSearch;
+        });
+    }, [products, searchQuery, stockFilter]);
 
     const handleEdit = (product: Product) => {
         setEditingProduct(product);
@@ -334,6 +340,8 @@ export default function AdminPage() {
                             onEdit={handleEdit}
                             onAdd={handleAddNew}
                             onDelete={handleDelete}
+                            currentFilter={stockFilter}
+                            onFilterChange={setStockFilter}
                         />
                     )}
                     {activeTab === 'orders' && <OrdersTab orders={orders} updateOrder={updateOrder} />}
@@ -666,14 +674,23 @@ function OverviewTab({ orders, products }: any) {
     );
 }
 
-function InventoryTab({ products, onEdit, onAdd, onDelete }: any) {
+function InventoryTab({ products, onEdit, onAdd, onDelete, currentFilter, onFilterChange }: any) {
     return (
         <div className="inventoryTab">
             <div className="tableControls">
                 <div className="statusFilters">
-                    <button className="statusFilter active">All Items</button>
-                    <button className="statusFilter">In Stock</button>
-                    <button className="statusFilter">Out of Stock</button>
+                    <button
+                        className={`statusFilter ${currentFilter === 'all' ? 'active' : ''}`}
+                        onClick={() => onFilterChange('all')}
+                    >All Items</button>
+                    <button
+                        className={`statusFilter ${currentFilter === 'in' ? 'active' : ''}`}
+                        onClick={() => onFilterChange('in')}
+                    >In Stock</button>
+                    <button
+                        className={`statusFilter ${currentFilter === 'out' ? 'active' : ''}`}
+                        onClick={() => onFilterChange('out')}
+                    >Out of Stock</button>
                 </div>
                 <button className="addBtn" onClick={onAdd}>
                     <Plus size={20} />
