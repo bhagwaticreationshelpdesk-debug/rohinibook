@@ -16,7 +16,7 @@ export default function Header() {
 
     const categories = [
         'Fiction', 'Business', 'Self Help', 'Manga',
-        'Fantasy', 'Children', 'Science', 'Mystery'
+        'Fantasy', 'Children', 'Science', 'Exam Prep'
     ];
 
     const trendingSearches = ['Atomic Habits', 'Percy Jackson', 'UPSC Guide', 'Rich Dad Poor Dad'];

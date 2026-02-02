@@ -123,7 +123,7 @@ export default function HeroSlider() {
             </div>
 
             <div className={styles.sideBanners}>
-                <Link href="/category/exams" className={`${styles.sideBanner} ${styles.examBanner}`}>
+                <Link href="/category/exam-prep" className={`${styles.sideBanner} ${styles.examBanner}`}>
                     <div className={styles.sideBannerContent}>
                         <h3 className={styles.sideBannerTitle}>Exam Prep</h3>
                         <p>Essential guides for success</p>

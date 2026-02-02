@@ -22,9 +22,11 @@ export default function CategoryPage({
 
         // 2. Special handling for home sections (Trending, Best Sellers, etc.)
         if (searchTerm === 'trending') found = products.filter(p => p.isTrending);
-        if (searchTerm === 'newly-published') found = products.filter(p => p.isNewArrival);
+        if (searchTerm === 'newly-published' || searchTerm === 'new arrivals') found = products.filter(p => p.isNewArrival);
         if (searchTerm === 'best-sellers') found = products.filter(p => p.isBestSeller);
         if (searchTerm === 'award-winners') found = products.filter(p => p.isAwardWinner);
+        if (searchTerm === 'exam prep' || searchTerm === 'exams') found = products.filter(p => p.category === 'Exam Prep');
+        if (searchTerm === 'all books') found = products;
 
         // 3. Fallback search in title/author
         if (found.length === 0) {

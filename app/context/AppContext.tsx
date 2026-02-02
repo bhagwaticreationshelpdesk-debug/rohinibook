@@ -123,6 +123,15 @@ const INITIAL_PRODUCTS: Product[] = [
     },
     {
         id: 'b25', title: "Percy Jackson: Lightning Thief", author: "Rick Riordan", price: 399, originalPrice: 699, image: "https://placehold.co/400x600/0ea5e9/FFF?text=Percy+Jackson", stock: 25, category: "Children", sales: 800, isBestSeller: true, discount: 43
+    },
+    {
+        id: 'e1', title: "UPSC Civil Services Prelims Guide", author: "Arihant Experts", price: 850, originalPrice: 1200, image: "https://placehold.co/400x600/1e3a8a/FFF?text=UPSC+Prelims", stock: 25, category: "Exam Prep", sales: 150, isTrending: true, discount: 29
+    },
+    {
+        id: 'e2', title: "SAT Prep Black Book", author: "Mike Barrett", price: 999, originalPrice: 1500, image: "https://placehold.co/400x600/4c1d95/FFF?text=SAT+Black+Book", stock: 25, category: "Exam Prep", sales: 80, isNewArrival: true, discount: 33
+    },
+    {
+        id: 'e3', title: "Oxford Student Atlas", author: "Oxford University Press", price: 350, originalPrice: 550, image: "https://placehold.co/400x600/065f46/FFF?text=Oxford+Atlas", stock: 25, category: "Exam Prep", sales: 300, isBestSeller: true, discount: 36
     }
 ];
 
@@ -145,9 +154,9 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
         if (savedProducts) {
             const parsedProducts: Product[] = JSON.parse(savedProducts);
 
-            // LOGIC: If the user has fewer than 10 books, they are likely using an old seed.
-            // Reset to the new INITIAL_PRODUCTS to ensure they see the 25 books.
-            if (parsedProducts.length < 10) {
+            // LOGIC: If the user has fewer than 28 books, they are missing the new 'Exam Prep' updates.
+            // Reset to the new INITIAL_PRODUCTS to ensure they see the full catalog.
+            if (parsedProducts.length < 28) {
                 setProducts(INITIAL_PRODUCTS);
                 localStorage.setItem('managed_products', JSON.stringify(INITIAL_PRODUCTS));
             } else {
