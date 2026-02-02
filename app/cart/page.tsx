@@ -69,6 +69,7 @@ export default function CartPage() {
                                     alt={item.title}
                                     fill
                                     style={{ objectFit: 'cover' }}
+                                    unoptimized
                                 />
                             </div>
                             <div className={styles.itemInfo}>

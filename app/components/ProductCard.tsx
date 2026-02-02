@@ -41,6 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     height={330}
                     className={styles.image}
                     priority={false}
+                    unoptimized
                 />
             </Link>
 
