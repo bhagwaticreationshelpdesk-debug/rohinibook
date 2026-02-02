@@ -13,6 +13,7 @@ export default function Footer() {
                             <li><Link href="/career">Career</Link></li>
                             <li><Link href="/blog">Blog</Link></li>
                             <li><Link href="/contact">Contact Us</Link></li>
+                            <li><Link href="/admin" style={{ color: '#E42B26', fontWeight: '600' }}>Admin Panel</Link></li>
                         </ul>
                     </div>
                     <div className={styles.column}>
