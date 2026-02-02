@@ -2,15 +2,7 @@ import Link from 'next/link';
 import ProductCard from './ProductCard';
 import styles from './product-section.module.css';
 
-interface Product {
-    id: string;
-    title: string;
-    author: string;
-    price: number;
-    originalPrice: number;
-    image: string;
-    discount: number;
-}
+import { Product } from '../context/AppContext';
 
 interface ProductSectionProps {
     title: string;

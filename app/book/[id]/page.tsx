@@ -35,7 +35,7 @@ export default function ProductPage({
         <div className="container" style={{ padding: '4rem 0', minHeight: '80vh' }}>
             {/* Breadcrumb */}
             <div style={{ marginBottom: '2rem', fontSize: '0.9rem', color: '#666' }}>
-                <Link href="/">Home</Link> / <Link href={`/category/${product.category.toLowerCase().replace(/ /g, '-')}`}>{(product.category || 'Books')}</Link> / <span style={{ color: '#1a1a1a', fontWeight: '500' }}>{product.title}</span>
+                <Link href="/">Home</Link> / <Link href={`/category/${product.category?.toLowerCase().replace(/ /g, '-') || 'books'}`}>{(product.category || 'Books')}</Link> / <span style={{ color: '#1a1a1a', fontWeight: '500' }}>{product.title}</span>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>

@@ -57,15 +57,7 @@ export default function WishlistPage() {
                 gap: '2rem'
             }}>
                 {wishlist.map(product => (
-                    <ProductCard key={product.id} product={{
-                        id: product.id,
-                        title: product.title,
-                        author: product.author,
-                        price: product.price,
-                        originalPrice: product.originalPrice,
-                        image: product.image,
-                        discount: product.discount || 0
-                    }} />
+                    <ProductCard key={product.id} product={product} />
                 ))}
             </div>
         </div>

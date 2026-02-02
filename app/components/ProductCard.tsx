@@ -6,18 +6,9 @@ import { Heart } from 'lucide-react';
 import styles from './product-card.module.css';
 import { useAppContext } from '../context/AppContext';
 
-export interface ProductProps {
-    id: string;
-    title: string;
-    author: string;
-    price: number;
-    originalPrice: number;
-    image: string;
-    description?: string;
-    discount: number;
-}
+import { Product } from '../context/AppContext';
 
-export default function ProductCard({ product }: { product: ProductProps }) {
+export default function ProductCard({ product }: { product: Product }) {
     const { addToWishlist, removeFromWishlist, isInWishlist, addToCart } = useAppContext();
     const isWishlisted = isInWishlist(product.id);
 
@@ -64,7 +55,7 @@ export default function ProductCard({ product }: { product: ProductProps }) {
                         <span className={styles.price}>₹{product.price}</span>
                         <span className={styles.originalPrice}>₹{product.originalPrice}</span>
                     </div>
-                    <span className={styles.discountBadge}>{product.discount}% OFF</span>
+                    <span className={styles.discountBadge}>{product.discount || 0}% OFF</span>
                 </div>
 
                 <div className={styles.actionFooter}>

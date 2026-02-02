@@ -3,16 +3,7 @@
 import { Heart, ShoppingBag } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
-interface Product {
-    id: string;
-    title: string;
-    author: string;
-    price: number;
-    originalPrice: number;
-    image: string;
-    description?: string;
-    discount?: number;
-}
+import { Product } from '../context/AppContext';
 
 export default function ProductActions({ product }: { product: Product }) {
     const { addToWishlist, removeFromWishlist, isInWishlist, addToCart } = useAppContext();
