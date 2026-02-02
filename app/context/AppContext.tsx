@@ -18,6 +18,7 @@ export interface Product {
     isNewArrival?: boolean;
     isBestSeller?: boolean;
     isAwardWinner?: boolean;
+    isbn?: string;
 }
 
 export interface Order {
@@ -56,10 +57,10 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 // Initial Data to seed the app if empty
 const INITIAL_PRODUCTS: Product[] = [
     {
-        id: '1', title: "The Secret Language of Flowers", author: "Eleanor Vance", price: 499, originalPrice: 899, image: "https://placehold.co/400x600/FF6B6B/FFF?text=Flowers", stock: 25, category: "Fiction", sales: 120, isTrending: true, discount: 45
+        id: '1', title: "The Secret Language of Flowers", author: "Eleanor Vance", price: 499, originalPrice: 899, image: "https://placehold.co/400x600/FF6B6B/FFF?text=Flowers", stock: 25, category: "Fiction", sales: 120, isTrending: true, discount: 45, isbn: "9781452145163"
     },
     {
-        id: '2', title: "Atomic Habits", author: "James Clear", price: 550, originalPrice: 999, image: "https://placehold.co/400x600/2a2a2a/FFF?text=Habits", stock: 25, category: "Self Help", sales: 850, isTrending: true, isBestSeller: true, discount: 45
+        id: '2', title: "Atomic Habits", author: "James Clear", price: 550, originalPrice: 999, image: "https://placehold.co/400x600/2a2a2a/FFF?text=Habits", stock: 25, category: "Self Help", sales: 850, isTrending: true, isBestSeller: true, discount: 45, isbn: "9781847941831"
     },
     {
         id: '3', title: "The Psychology of Money", author: "Morgan Housel", price: 420, originalPrice: 750, image: "https://placehold.co/400x600/123456/FFF?text=Money", stock: 25, category: "Business", sales: 430, isTrending: true, discount: 44

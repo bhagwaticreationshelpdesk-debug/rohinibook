@@ -24,10 +24,13 @@ import {
     AlertTriangle,
     CheckCircle2,
     RefreshCw,
-    Lock
+    Lock,
+    Maximize,
+    Barcode
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAppContext, Product, Order } from '../context/AppContext';
+import BarcodeScanner from '../components/BarcodeScanner';
 
 // --- Components ---
 
@@ -43,6 +46,8 @@ export default function AdminPage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loginError, setLoginError] = useState("");
     const [stockFilter, setStockFilter] = useState<'all' | 'in' | 'out'>('all');
+    const [isScannerOpen, setIsScannerOpen] = useState(false);
+    const [prefilledData, setPrefilledData] = useState<Partial<Product> | null>(null);
 
     // Check auth on mount
     useEffect(() => {
@@ -109,6 +114,7 @@ export default function AdminPage() {
             isNewArrival: formData.get('isNewArrival') === 'on',
             isBestSeller: formData.get('isBestSeller') === 'on',
             isAwardWinner: formData.get('isAwardWinner') === 'on',
+            isbn: formData.get('isbn') as string,
         };
 
         if (editingProduct) {
@@ -119,6 +125,51 @@ export default function AdminPage() {
             notify("New book added to inventory!");
         }
         setIsModalOpen(false);
+    };
+
+    const handleBarcodeSuccess = async (isbn: string) => {
+        setIsScannerOpen(false);
+        notify(`Barcode scanned: ${isbn}`, "success");
+
+        // 1. Check if product exists
+        const existing = products.find(p => p.isbn === isbn);
+        if (existing) {
+            setEditingProduct(existing);
+            setIsModalOpen(true);
+            notify("Existing book found in inventory", "success");
+            return;
+        }
+
+        // 2. Fetch from Google Books API
+        notify("Searching global database...", "success");
+        try {
+            const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+            const data = await res.json();
+
+            if (data.totalItems > 0) {
+                const info = data.items[0].volumeInfo;
+                setEditingProduct(null);
+                setPrefilledData({
+                    title: info.title,
+                    author: info.authors?.join(', ') || 'Unknown Author',
+                    description: info.description || '',
+                    category: info.categories ? info.categories[0] : 'Fiction',
+                    image: info.imageLinks?.thumbnail || '',
+                    isbn: isbn
+                });
+                setIsModalOpen(true);
+                notify("Book metadata imported!", "success");
+            } else {
+                notify("Book not found in database. Manual entry required.", "error");
+                setEditingProduct(null);
+                setPrefilledData({ isbn });
+                setIsModalOpen(true);
+            }
+        } catch (err) {
+            notify("Search failed. Entering manual mode.", "error");
+            setPrefilledData({ isbn });
+            setIsModalOpen(true);
+        }
     };
 
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
@@ -342,6 +393,10 @@ export default function AdminPage() {
                             onDelete={handleDelete}
                             currentFilter={stockFilter}
                             onFilterChange={setStockFilter}
+                            onScan={() => {
+                                setPrefilledData(null);
+                                setIsScannerOpen(true);
+                            }}
                         />
                     )}
                     {activeTab === 'orders' && <OrdersTab orders={orders} updateOrder={updateOrder} />}
@@ -364,11 +419,11 @@ export default function AdminPage() {
                             <div className="formGrid">
                                 <div className="formGroup full">
                                     <label>Book Title</label>
-                                    <input name="title" defaultValue={editingProduct?.title} required placeholder="Enter compelling book title" />
+                                    <input name="title" defaultValue={prefilledData?.title || editingProduct?.title} required placeholder="Enter compelling book title" />
                                 </div>
                                 <div className="formGroup">
                                     <label>Author / Publisher</label>
-                                    <input name="author" defaultValue={editingProduct?.author} required placeholder="Full name of author" />
+                                    <input name="author" defaultValue={prefilledData?.author || editingProduct?.author} required placeholder="Full name of author" />
                                 </div>
                                 <div className="formGroup">
                                     <label>Category</label>
@@ -399,9 +454,13 @@ export default function AdminPage() {
                                     <label>Cover Image URL</label>
                                     <input name="image" defaultValue={editingProduct?.image} placeholder="https://example.com/cover.jpg" />
                                 </div>
+                                <div className="formGroup">
+                                    <label>ISBN / Barcode</label>
+                                    <input name="isbn" defaultValue={prefilledData?.isbn || editingProduct?.isbn} placeholder="9780000000000" />
+                                </div>
                                 <div className="formGroup full">
                                     <label>Description</label>
-                                    <textarea name="description" defaultValue={editingProduct?.description} placeholder="Short blurb for the product page..." rows={3} />
+                                    <textarea name="description" defaultValue={prefilledData?.description || editingProduct?.description} placeholder="Short blurb for the product page..." rows={3} />
                                 </div>
                             </div>
 
@@ -446,6 +505,13 @@ export default function AdminPage() {
                         </form>
                     </div>
                 </div>
+            )}
+
+            {isScannerOpen && (
+                <BarcodeScanner
+                    onSuccess={handleBarcodeSuccess}
+                    onClose={() => setIsScannerOpen(false)}
+                />
             )}
 
             <style jsx>{`
@@ -527,6 +593,10 @@ export default function AdminPage() {
         .formActions { display: flex; gap: 1rem; margin-top: 1rem; }
         .btnSecondary { flex: 1; padding: 14px; border-radius: 14px; border: 1px solid #e2e8f0; background: white; font-weight: 700; cursor: pointer; color: #64748b; transition: all 0.2s; }
         .btnSecondary:hover { background: #f8fafc; color: #0f172a; }
+        .inventoryActions { display: flex; gap: 1rem; }
+        .scanBtn { display: flex; align-items: center; gap: 10px; background: #0f172a; color: white; border: none; padding: 12px 24px; border-radius: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1px solid #1e293b; }
+        .scanBtn:hover { background: #1e293b; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.2); }
+        
         .btnPrimary { flex: 2; padding: 14px; border-radius: 14px; border: none; background: #E42B26; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 10px 15px -3px rgba(228, 43, 38, 0.3); }
         .btnPrimary:hover { background: #b91c18; transform: translateY(-2px); }
       `}</style>
@@ -674,7 +744,7 @@ function OverviewTab({ orders, products }: any) {
     );
 }
 
-function InventoryTab({ products, onEdit, onAdd, onDelete, currentFilter, onFilterChange }: any) {
+function InventoryTab({ products, onEdit, onAdd, onDelete, currentFilter, onFilterChange, onScan }: any) {
     return (
         <div className="inventoryTab">
             <div className="tableControls">
@@ -692,10 +762,16 @@ function InventoryTab({ products, onEdit, onAdd, onDelete, currentFilter, onFilt
                         onClick={() => onFilterChange('out')}
                     >Out of Stock</button>
                 </div>
-                <button className="addBtn" onClick={onAdd}>
-                    <Plus size={20} />
-                    <span>Add New Book</span>
-                </button>
+                <div className="inventoryActions">
+                    <button className="scanBtn" onClick={() => onScan()}>
+                        <Maximize size={18} />
+                        <span>Scan Barcode</span>
+                    </button>
+                    <button className="addBtn" onClick={onAdd}>
+                        <Plus size={20} />
+                        <span>Add New Book</span>
+                    </button>
+                </div>
             </div>
 
             <div className="inventoryCard">
