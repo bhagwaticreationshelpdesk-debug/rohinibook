@@ -26,10 +26,11 @@ export default function ProductActions({ product }: { product: Product }) {
         <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
             <button
                 onClick={handleAddToCart}
+                disabled={product.stock === 0}
                 style={{
                     flex: '1',
                     padding: '1rem',
-                    background: '#E42B26',
+                    background: product.stock === 0 ? '#999' : '#E42B26',
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
@@ -39,11 +40,16 @@ export default function ProductActions({ product }: { product: Product }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '0.5rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 12px rgba(228, 43, 38, 0.3)'
+                    cursor: product.stock === 0 ? 'not-allowed' : 'pointer',
+                    boxShadow: product.stock === 0 ? 'none' : '0 4px 12px rgba(228, 43, 38, 0.3)',
+                    opacity: product.stock === 0 ? 0.7 : 1
                 }}
             >
-                <ShoppingBag size={20} /> Add to Cart
+                {product.stock > 0 ? (
+                    <><ShoppingBag size={20} /> Add to Cart</>
+                ) : (
+                    'Out of Stock'
+                )}
             </button>
             <button
                 onClick={toggleWishlist}

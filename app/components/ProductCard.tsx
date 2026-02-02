@@ -29,8 +29,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
     return (
         <div className={styles.card}>
-            <div className={styles.pickupBadge}>
-                <span>✓</span> In Stock
+            <div className={`${styles.pickupBadge} ${product.stock === 0 ? styles.outOfStock : ''}`}>
+                <span>{product.stock > 0 ? '✓' : '✕'}</span> {product.stock > 0 ? 'In Stock' : 'Out of Stock'}
             </div>
 
             <Link href={`/book/${product.id}`} className={styles.imageContainer}>
@@ -39,7 +39,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     alt={product.title}
                     width={220}
                     height={330}
-                    className={styles.image}
+                    className={`${styles.image} ${product.stock === 0 ? styles.grayImage : ''}`}
                     priority={false}
                     unoptimized
                 />
@@ -60,7 +60,18 @@ export default function ProductCard({ product }: { product: Product }) {
                 </div>
 
                 <div className={styles.actionFooter}>
-                    <button onClick={handleAddToCart} className={styles.addToCartBtn}>Add to Cart</button>
+                    <button
+                        onClick={handleAddToCart}
+                        className={styles.addToCartBtn}
+                        disabled={product.stock === 0}
+                        style={{
+                            opacity: product.stock === 0 ? 0.5 : 1,
+                            cursor: product.stock === 0 ? 'not-allowed' : 'pointer',
+                            background: product.stock === 0 ? '#999' : '#E42B26'
+                        }}
+                    >
+                        {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+                    </button>
                     <button
                         onClick={toggleWishlist}
                         className={styles.wishlistBtn}
