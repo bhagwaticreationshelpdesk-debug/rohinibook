@@ -53,70 +53,73 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 // Initial Data to seed the app if empty
 const INITIAL_PRODUCTS: Product[] = [
     {
-        id: '1',
-        title: "The Secret Language of Flowers",
-        author: "Eleanor Vance",
-        price: 499,
-        originalPrice: 899,
-        discount: 45,
-        image: "/book_cover_romance.png",
-        stock: 50,
-        category: "Romance",
-        sales: 120,
-        isTrending: true
+        id: '1', title: "The Secret Language of Flowers", author: "Eleanor Vance", price: 499, originalPrice: 899, image: "https://placehold.co/400x600/FF6B6B/FFF?text=Flowers", stock: 25, category: "Fiction", sales: 120, isTrending: true, discount: 45
     },
     {
-        id: '2',
-        title: "Atomic Habits",
-        author: "James Clear",
-        price: 550,
-        originalPrice: 999,
-        discount: 45,
-        image: "https://placehold.co/400x600/2a2a2a/FFF.png?text=Atomic+Habits",
-        stock: 15,
-        category: "Self Help",
-        sales: 850,
-        isTrending: true,
-        isBestSeller: true
+        id: '2', title: "Atomic Habits", author: "James Clear", price: 550, originalPrice: 999, image: "https://placehold.co/400x600/2a2a2a/FFF?text=Habits", stock: 25, category: "Self Help", sales: 850, isTrending: true, isBestSeller: true, discount: 45
     },
     {
-        id: '3',
-        title: "The Psychology of Money",
-        author: "Morgan Housel",
-        price: 420,
-        originalPrice: 750,
-        discount: 44,
-        image: "https://placehold.co/400x600/123456/FFF.png?text=Psychology",
-        stock: 20,
-        category: "Business",
-        sales: 430,
-        isTrending: true
+        id: '3', title: "The Psychology of Money", author: "Morgan Housel", price: 420, originalPrice: 750, image: "https://placehold.co/400x600/123456/FFF?text=Money", stock: 25, category: "Business", sales: 430, isTrending: true, discount: 44
     },
     {
-        id: '7',
-        title: "Fourth Wing",
-        author: "Rebecca Yarros",
-        price: 799,
-        originalPrice: 1400,
-        discount: 42,
-        image: "https://placehold.co/400x600/550000/FFF.png?text=Fourth+Wing",
-        stock: 10,
-        category: "Fantasy",
-        sales: 300,
-        isNewArrival: true
+        id: '7', title: "Fourth Wing", author: "Rebecca Yarros", price: 799, originalPrice: 1400, image: "https://placehold.co/400x600/550000/FFF?text=Fourth+Wing", stock: 25, category: "Fantasy", sales: 300, isNewArrival: true, discount: 42
     },
     {
-        id: '13',
-        title: "It Ends With Us",
-        author: "Colleen Hoover",
-        price: 299,
-        originalPrice: 599,
-        discount: 50,
-        image: "https://placehold.co/400x600/FFC0CB/000.png?text=It+Ends+With+Us",
-        stock: 100,
-        category: "Romance",
-        sales: 1500,
-        isBestSeller: true
+        id: '13', title: "It Ends With Us", author: "Colleen Hoover", price: 299, originalPrice: 599, image: "https://placehold.co/400x600/FFC0CB/000?text=Hoover", stock: 25, category: "Fiction", sales: 1500, isBestSeller: true, discount: 50
+    },
+    {
+        id: 'b8', title: "Deep Work", author: "Cal Newport", price: 399, originalPrice: 699, image: "https://placehold.co/400x600/3b82f6/FFF?text=Deep+Work", stock: 25, category: "Self Help", sales: 210, isNewArrival: true, discount: 43
+    },
+    {
+        id: 'b9', title: "Zero to One", author: "Peter Thiel", price: 450, originalPrice: 799, image: "https://placehold.co/400x600/0f172a/FFF?text=Zero+To+One", stock: 25, category: "Business", sales: 180, isAwardWinner: true, discount: 44
+    },
+    {
+        id: 'b10', title: "Naruto: Vol 1", author: "Masashi Kishimoto", price: 350, originalPrice: 599, image: "https://placehold.co/400x600/f97316/FFF?text=Naruto", stock: 25, category: "Manga", sales: 1200, isBestSeller: true, discount: 42
+    },
+    {
+        id: 'b11', title: "One Piece: Vol 1", author: "Eiichiro Oda", price: 350, originalPrice: 599, image: "https://placehold.co/400x600/ef4444/FFF?text=One+Piece", stock: 25, category: "Manga", sales: 900, isTrending: true, discount: 42
+    },
+    {
+        id: 'b12', title: "The Little Prince", author: "Antoine de Saint-Exupéry", price: 199, originalPrice: 399, image: "https://placehold.co/400x600/38bdf8/FFF?text=Little+Prince", stock: 25, category: "Children", sales: 500, isAwardWinner: true, discount: 50
+    },
+    {
+        id: 'b13', title: "Where the Wild Things Are", author: "Maurice Sendak", price: 250, originalPrice: 450, image: "https://placehold.co/400x600/166534/FFF?text=Wild+Things", stock: 25, category: "Children", sales: 300, isNewArrival: true, discount: 44
+    },
+    {
+        id: 'b14', title: "Thinking, Fast and Slow", author: "Daniel Kahneman", price: 599, originalPrice: 999, image: "https://placehold.co/400x600/065f46/FFF?text=Thinking", stock: 25, category: "Science", sales: 250, isAwardWinner: true, discount: 40
+    },
+    {
+        id: 'b15', title: "Sapiens", author: "Yuval Noah Harari", price: 499, originalPrice: 899, image: "https://placehold.co/400x600/78350f/FFF?text=Sapiens", stock: 25, category: "Science", sales: 600, isBestSeller: true, discount: 45
+    },
+    {
+        id: 'b16', title: "The Midnight Library", author: "Matt Haig", price: 350, originalPrice: 650, image: "https://placehold.co/400x600/1e3a8a/FFF?text=Midnight", stock: 25, category: "Fiction", sales: 400, isTrending: true, discount: 46
+    },
+    {
+        id: 'b17', title: "Dune", author: "Frank Herbert", price: 599, originalPrice: 1099, image: "https://placehold.co/400x600/9a3412/FFF?text=Dune", stock: 25, category: "Fantasy", sales: 700, isBestSeller: true, discount: 45
+    },
+    {
+        id: 'b18', title: "Crime and Punishment", author: "Fyodor Dostoevsky", price: 399, originalPrice: 799, image: "https://placehold.co/400x600/111827/FFF?text=Dostoevsky", stock: 25, category: "Fiction", sales: 150, isAwardWinner: true, discount: 50
+    },
+    {
+        id: 'b19', title: "The Millionaire Fastlane", author: "MJ DeMarco", price: 650, originalPrice: 1200, image: "https://placehold.co/400x600/eab308/000?text=Fastlane", stock: 25, category: "Business", sales: 220, isTrending: true, discount: 46
+    },
+    {
+        id: 'b20', title: "Attack on Titan: Vol 1", author: "Hajime Isayama", price: 420, originalPrice: 750, image: "https://placehold.co/400x600/7f1d1d/FFF?text=AoT", stock: 25, category: "Manga", sales: 550, isNewArrival: true, discount: 44
+    },
+    {
+        id: 'b21', title: "Spy x Family: Vol 1", author: "Tatsuya Endo", price: 380, originalPrice: 650, image: "https://placehold.co/400x600/10b981/FFF?text=SpyFamily", stock: 25, category: "Manga", sales: 420, isTrending: true, discount: 42
+    },
+    {
+        id: 'b22', title: "The Hindpocket Bible", author: "John Smith", price: 150, originalPrice: 300, image: "https://placehold.co/400x600/4c1d95/FFF?text=Pocket+Bible", stock: 25, category: "Self Help", sales: 100, isNewArrival: true, discount: 50
+    },
+    {
+        id: 'b23', title: "Hyperfocus", author: "Chris Bailey", price: 450, originalPrice: 850, image: "https://placehold.co/400x600/4338ca/FFF?text=Hyperfocus", stock: 25, category: "Self Help", sales: 160, isTrending: true, discount: 47
+    },
+    {
+        id: 'b24', title: "The 5 AM Club", author: "Robin Sharma", price: 499, originalPrice: 999, image: "https://placehold.co/400x600/b91c1c/FFF?text=5AM+Club", stock: 25, category: "Business", sales: 340, isBestSeller: true, discount: 50
+    },
+    {
+        id: 'b25', title: "Percy Jackson: Lightning Thief", author: "Rick Riordan", price: 399, originalPrice: 699, image: "https://placehold.co/400x600/0ea5e9/FFF?text=Percy+Jackson", stock: 25, category: "Children", sales: 800, isBestSeller: true, discount: 43
     }
 ];
 
