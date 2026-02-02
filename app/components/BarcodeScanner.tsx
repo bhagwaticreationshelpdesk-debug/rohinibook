@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import { useEffect, useRef } from 'react';
+import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { X, Book, Loader2 } from 'lucide-react';
 
 interface BarcodeScannerProps {
@@ -13,30 +13,45 @@ export default function BarcodeScanner({ onSuccess, onClose }: BarcodeScannerPro
     const scannerRef = useRef<Html5QrcodeScanner | null>(null);
 
     useEffect(() => {
-        // Initialize scanner
+        // Initialize scanner with explicit support for Book Barcodes (EAN-13)
         scannerRef.current = new Html5QrcodeScanner(
             "reader",
             {
-                fps: 10,
-                qrbox: { width: 250, height: 150 },
-                aspectRatio: 1.777778 // 16:9 for landscape-style barcodes
+                fps: 15, // Higher FPS for faster 1D detection
+                qrbox: { width: 300, height: 150 }, // Wider box for 1D barcodes
+                aspectRatio: 1.0,
+                formatsToSupport: [
+                    Html5QrcodeSupportedFormats.EAN_13,
+                    Html5QrcodeSupportedFormats.EAN_8,
+                    Html5QrcodeSupportedFormats.CODE_128,
+                    Html5QrcodeSupportedFormats.UPC_A,
+                    Html5QrcodeSupportedFormats.UPC_E
+                ],
+                showTorchButtonIfSupported: true, // Helpful for dark barcodes
             },
             /* verbose= */ false
         );
 
         scannerRef.current.render(
             (decodedText) => {
-                // Success
-                onSuccess(decodedText);
+                // Remove any non-numeric characters (hyphens/spaces) often found in ISBNs
+                const cleanedIsbn = decodedText.replace(/[^0-9X]/gi, '');
+                if (cleanedIsbn.length >= 10) {
+                    onSuccess(cleanedIsbn);
+                }
             },
             (error) => {
-                // Ignore errors (scanning is continuous)
+                // Continuous scanning
             }
         );
 
         return () => {
             if (scannerRef.current) {
-                scannerRef.current.clear().catch(err => console.error("Failed to clear scanner", err));
+                // Use a non-blocking cleanup to avoid race conditions in Next.js
+                const scanner = scannerRef.current;
+                setTimeout(() => {
+                    scanner.clear().catch(err => console.error("Scanner cleanup failed:", err));
+                }, 0);
             }
         };
     }, [onSuccess]);
