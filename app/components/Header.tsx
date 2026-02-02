@@ -23,10 +23,17 @@ export default function Header() {
 
     // Dynamic suggestions based on input
     const liveSuggestions = searchQuery.trim().length > 0
-        ? products.filter(p =>
-            p.title.toLowerCase().startsWith(searchQuery.toLowerCase()) ||
-            p.author.toLowerCase().startsWith(searchQuery.toLowerCase())
-        ).slice(0, 6)
+        ? products.filter(p => {
+            const query = searchQuery.toLowerCase();
+            const title = p.title.toLowerCase();
+            const author = p.author.toLowerCase();
+
+            // Logic: Starts with query OR query is a whole word in the title (preceded by space)
+            return title.startsWith(query) ||
+                title.includes(" " + query) ||
+                author.startsWith(query) ||
+                author.includes(" " + query);
+        }).slice(0, 6)
         : [];
 
     // Close search when clicking outside
@@ -93,17 +100,30 @@ export default function Header() {
                                     <div className={styles.suggestionGroup}>
                                         <h4 className={styles.suggestionTitle}>Matching Books</h4>
                                         <ul className={styles.suggestionList} style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                                            {liveSuggestions.map(p => (
-                                                <li
-                                                    key={p.id}
-                                                    className={styles.suggestionItem}
-                                                    style={{ width: '100%', borderRadius: '8px', display: 'flex', justifyContent: 'space-between' }}
-                                                    onClick={() => handleSuggestionClick(p.title, 'book', p.id)}
-                                                >
-                                                    <span><strong>{p.title.slice(0, searchQuery.length)}</strong>{p.title.slice(searchQuery.length)}</span>
-                                                    <span style={{ fontSize: '0.7rem', opacity: 0.6 }}>{p.category}</span>
-                                                </li>
-                                            ))}
+                                            {liveSuggestions.map(p => {
+                                                const query = searchQuery.trim();
+                                                const parts = p.title.split(new RegExp(`(${query})`, 'gi'));
+                                                return (
+                                                    <li
+                                                        key={p.id}
+                                                        className={styles.suggestionItem}
+                                                        style={{ width: '100%', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                                                        onClick={() => handleSuggestionClick(p.title, 'book', p.id)}
+                                                    >
+                                                        <span>
+                                                            {parts.map((part, i) =>
+                                                                part.toLowerCase() === query.toLowerCase()
+                                                                    ? <strong key={i}>{part}</strong>
+                                                                    : <span key={i}>{part}</span>
+                                                            )}
+                                                        </span>
+                                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                                                            <span style={{ fontSize: '0.65rem', opacity: 0.5 }}>{p.author}</span>
+                                                            <span style={{ fontSize: '0.7rem', color: '#E42B26', fontWeight: 600 }}>₹{p.price}</span>
+                                                        </div>
+                                                    </li>
+                                                );
+                                            })}
                                         </ul>
                                     </div>
                                 ) : searchQuery.length > 0 ? (
