@@ -15,8 +15,8 @@ export default function Header() {
     const router = useRouter();
 
     const categories = [
-        'Fiction', 'Non-Fiction', 'Teens & YA', 'Kids', 'Exams',
-        'Manga', 'Award Winners', 'Newly Published', 'Best Sellers'
+        'Fiction', 'Business', 'Self Help', 'Manga',
+        'Fantasy', 'Children', 'Science', 'Mystery'
     ];
 
     const trendingSearches = ['Atomic Habits', 'Percy Jackson', 'UPSC Guide', 'Rich Dad Poor Dad'];

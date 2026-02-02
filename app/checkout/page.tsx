@@ -8,7 +8,7 @@ import { useAppContext } from '../context/AppContext';
 import styles from './checkout.module.css';
 
 export default function CheckoutPage() {
-    const { cart, removeFromCart } = useAppContext();
+    const { cart, removeFromCart, processCheckout } = useAppContext();
     const router = useRouter();
     const [isProcessing, setIsProcessing] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -21,13 +21,15 @@ export default function CheckoutPage() {
         e.preventDefault();
         setIsProcessing(true);
 
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+        const customer = `${formData.get('firstName')} ${formData.get('lastName')}`;
+        const email = "customer@example.com"; // In a real app we'd get this from input or auth
+
         // Simulate API call
         setTimeout(() => {
+            processCheckout({ customer, email });
             setIsProcessing(false);
             setIsSuccess(true);
-
-            // Clear cart logic would go here if needed per item
-            // For now just keep success state
         }, 2000);
     };
 
@@ -77,11 +79,11 @@ export default function CheckoutPage() {
                         <div className={styles.formRow}>
                             <div className={styles.formGroup}>
                                 <label className={styles.label}>First Name</label>
-                                <input type="text" required className={styles.input} placeholder="John" />
+                                <input name="firstName" type="text" required className={styles.input} placeholder="John" />
                             </div>
                             <div className={styles.formGroup}>
                                 <label className={styles.label}>Last Name</label>
-                                <input type="text" required className={styles.input} placeholder="Doe" />
+                                <input name="lastName" type="text" required className={styles.input} placeholder="Doe" />
                             </div>
                         </div>
                         <div className={styles.formGroup}>

@@ -46,6 +46,9 @@ interface AppContextType {
     deleteProduct: (productId: string) => void;
     addOrder: (order: Order) => void;
     updateOrder: (order: Order) => void;
+    clearCart: () => void;
+    processCheckout: (orderDetails: { customer: string, email: string }) => void;
+    resetToDefault: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -138,13 +141,24 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
 
         if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
         if (savedCart) setCart(JSON.parse(savedCart));
+
         if (savedProducts) {
-            setProducts(JSON.parse(savedProducts));
+            const parsedProducts: Product[] = JSON.parse(savedProducts);
+
+            // LOGIC: If the user has fewer than 10 books, they are likely using an old seed.
+            // Reset to the new INITIAL_PRODUCTS to ensure they see the 25 books.
+            if (parsedProducts.length < 10) {
+                setProducts(INITIAL_PRODUCTS);
+                localStorage.setItem('managed_products', JSON.stringify(INITIAL_PRODUCTS));
+            } else {
+                setProducts(parsedProducts);
+            }
         } else {
-            // Seed initial data
+            // Seed initial data for first time users
             setProducts(INITIAL_PRODUCTS);
             localStorage.setItem('managed_products', JSON.stringify(INITIAL_PRODUCTS));
         }
+
         if (savedOrders) setOrders(JSON.parse(savedOrders));
     }, []);
 
@@ -204,6 +218,45 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
         setOrders(orders.map(o => o.id === updatedOrder.id ? updatedOrder : o));
     };
 
+    const clearCart = () => setCart([]);
+
+    const processCheckout = (details: { customer: string, email: string }) => {
+        // 1. Create the order
+        const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+        const newOrder: Order = {
+            id: `ORD-${Date.now().toString().slice(-6)}`,
+            customer: details.customer,
+            email: details.email,
+            items: cart.length,
+            total: subtotal + 50,
+            status: 'Pending',
+            date: new Date().toLocaleDateString()
+        };
+
+        // 2. Deduct stock for each item in cart
+        const updatedProducts = products.map(p => {
+            const itemsInCart = cart.filter(item => item.id === p.id).length;
+            if (itemsInCart > 0) {
+                return { ...p, stock: Math.max(0, p.stock - itemsInCart), sales: (p.sales || 0) + itemsInCart };
+            }
+            return p;
+        });
+
+        setProducts(updatedProducts);
+        setOrders([newOrder, ...orders]);
+        setCart([]); // Clear cart
+    };
+
+    const resetToDefault = () => {
+        if (confirm("This will delete all your edits and restore the 25+ default books. Continue?")) {
+            setProducts(INITIAL_PRODUCTS);
+            localStorage.setItem('managed_products', JSON.stringify(INITIAL_PRODUCTS));
+            setOrders([]);
+            localStorage.removeItem('managed_orders');
+            window.location.reload();
+        }
+    };
+
     return (
         <AppContext.Provider value={{
             wishlist,
@@ -219,7 +272,10 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
             updateProduct,
             deleteProduct,
             addOrder,
-            updateOrder
+            updateOrder,
+            clearCart,
+            processCheckout,
+            resetToDefault
         }}>
             {children}
         </AppContext.Provider>

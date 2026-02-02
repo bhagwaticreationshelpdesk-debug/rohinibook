@@ -33,7 +33,7 @@ import { useAppContext, Product, Order } from '../context/AppContext';
 type TabType = 'overview' | 'inventory' | 'orders' | 'access';
 
 export default function AdminPage() {
-    const { products, orders, updateProduct, addProduct, deleteProduct, updateOrder } = useAppContext();
+    const { products, orders, updateProduct, addProduct, deleteProduct, updateOrder, resetToDefault } = useAppContext();
     const [activeTab, setActiveTab] = useState<TabType>('overview');
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -200,8 +200,8 @@ export default function AdminPage() {
                             <Bell size={20} />
                             <span className="badge"></span>
                         </button>
-                        <button className="iconBtn">
-                            <RefreshCw size={20} onClick={() => window.location.reload()} />
+                        <button className="iconBtn resetBtn" title="Reset System" onClick={resetToDefault}>
+                            <RefreshCw size={20} />
                         </button>
                     </div>
                 </header>
