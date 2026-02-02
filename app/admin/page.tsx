@@ -593,9 +593,6 @@ export default function AdminPage() {
         .formActions { display: flex; gap: 1rem; margin-top: 1rem; }
         .btnSecondary { flex: 1; padding: 14px; border-radius: 14px; border: 1px solid #e2e8f0; background: white; font-weight: 700; cursor: pointer; color: #64748b; transition: all 0.2s; }
         .btnSecondary:hover { background: #f8fafc; color: #0f172a; }
-        .inventoryActions { display: flex; gap: 1rem; }
-        .scanBtn { display: flex; align-items: center; gap: 10px; background: #0f172a; color: white; border: none; padding: 12px 24px; border-radius: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1px solid #1e293b; }
-        .scanBtn:hover { background: #1e293b; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.2); }
         
         .btnPrimary { flex: 2; padding: 14px; border-radius: 14px; border: none; background: #E42B26; color: white; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 10px 15px -3px rgba(228, 43, 38, 0.3); }
         .btnPrimary:hover { background: #b91c18; transform: translateY(-2px); }
@@ -763,8 +760,8 @@ function InventoryTab({ products, onEdit, onAdd, onDelete, currentFilter, onFilt
                     >Out of Stock</button>
                 </div>
                 <div className="inventoryActions">
-                    <button className="scanBtn" onClick={() => onScan()}>
-                        <Maximize size={18} />
+                    <button className="scanBtn" onClick={onScan}>
+                        <Barcode size={20} />
                         <span>Scan Barcode</span>
                     </button>
                     <button className="addBtn" onClick={onAdd}>
@@ -877,8 +874,31 @@ function InventoryTab({ products, onEdit, onAdd, onDelete, currentFilter, onFilt
         .actionIcon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s; }
         .actionIcon.edit:hover { background: #fff1f2; color: #E42B26; border-color: #E42B26; }
         .actionIcon.delete:hover { background: #fee2e2; color: #ef4444; border-color: #ef4444; }
+
+        .inventoryActions { display: flex; gap: 0.75rem; align-items: center; }
+        .scanBtn { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            background: #1e293b; 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 14px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .scanBtn:hover { 
+            background: #0f172a; 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.3);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .scanBtn:active { transform: translateY(0); }
       `}</style>
-        </div>
+        </div >
     );
 }
 
