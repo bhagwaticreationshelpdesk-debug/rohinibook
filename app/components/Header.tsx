@@ -8,7 +8,7 @@ import styles from './header.module.css';
 import { useAppContext } from '../context/AppContext';
 
 export default function Header() {
-    const { wishlist, cart } = useAppContext();
+    const { wishlist, cart, products } = useAppContext();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const searchRef = useRef<HTMLDivElement>(null);
@@ -20,7 +20,14 @@ export default function Header() {
     ];
 
     const trendingSearches = ['Atomic Habits', 'Percy Jackson', 'UPSC Guide', 'Rich Dad Poor Dad'];
-    const popularCategories = ['Fiction', 'Manga', 'Reference', 'Biographies'];
+
+    // Dynamic suggestions based on input
+    const liveSuggestions = searchQuery.trim().length > 0
+        ? products.filter(p =>
+            p.title.toLowerCase().startsWith(searchQuery.toLowerCase()) ||
+            p.author.toLowerCase().startsWith(searchQuery.toLowerCase())
+        ).slice(0, 6)
+        : [];
 
     // Close search when clicking outside
     useEffect(() => {
@@ -43,9 +50,13 @@ export default function Header() {
         }
     };
 
-    const handleSuggestionClick = (term: string) => {
-        setSearchQuery(term);
-        router.push(`/category/${term.toLowerCase().replace(/ /g, '-')}`);
+    const handleSuggestionClick = (term: string, type: 'search' | 'book' = 'search', id?: string) => {
+        if (type === 'book' && id) {
+            router.push(`/book/${id}`);
+        } else {
+            setSearchQuery(term);
+            router.push(`/category/${term.toLowerCase().replace(/ /g, '-')}`);
+        }
         setIsSearchOpen(false);
     };
 
@@ -64,7 +75,7 @@ export default function Header() {
                         <form onSubmit={handleSearch} style={{ width: '100%', display: 'flex' }}>
                             <input
                                 type="text"
-                                placeholder="Search by Title, Author, Publisher or ISBN"
+                                placeholder="Search by Title, Author..."
                                 className={styles.searchInput}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -78,26 +89,51 @@ export default function Header() {
 
                         {isSearchOpen && (
                             <div className={styles.searchOverlay}>
-                                <div className={styles.suggestionGroup}>
-                                    <h4 className={styles.suggestionTitle}>Trending Searches</h4>
-                                    <ul className={styles.suggestionList}>
-                                        {trendingSearches.map(term => (
-                                            <li key={term} className={styles.suggestionItem} onClick={() => handleSuggestionClick(term)}>
-                                                {term}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className={styles.suggestionGroup}>
-                                    <h4 className={styles.suggestionTitle}>Popular Categories</h4>
-                                    <ul className={styles.suggestionList}>
-                                        {popularCategories.map(cat => (
-                                            <li key={cat} className={styles.suggestionItem} onClick={() => handleSuggestionClick(cat)}>
-                                                {cat}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
+                                {liveSuggestions.length > 0 ? (
+                                    <div className={styles.suggestionGroup}>
+                                        <h4 className={styles.suggestionTitle}>Matching Books</h4>
+                                        <ul className={styles.suggestionList} style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                                            {liveSuggestions.map(p => (
+                                                <li
+                                                    key={p.id}
+                                                    className={styles.suggestionItem}
+                                                    style={{ width: '100%', borderRadius: '8px', display: 'flex', justifyContent: 'space-between' }}
+                                                    onClick={() => handleSuggestionClick(p.title, 'book', p.id)}
+                                                >
+                                                    <span><strong>{p.title.slice(0, searchQuery.length)}</strong>{p.title.slice(searchQuery.length)}</span>
+                                                    <span style={{ fontSize: '0.7rem', opacity: 0.6 }}>{p.category}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ) : searchQuery.length > 0 ? (
+                                    <div className={styles.suggestionGroup}>
+                                        <p style={{ fontSize: '0.85rem', color: '#666' }}>No exact matches found...</p>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className={styles.suggestionGroup}>
+                                            <h4 className={styles.suggestionTitle}>Trending Searches</h4>
+                                            <ul className={styles.suggestionList}>
+                                                {trendingSearches.map(term => (
+                                                    <li key={term} className={styles.suggestionItem} onClick={() => handleSuggestionClick(term)}>
+                                                        {term}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className={styles.suggestionGroup}>
+                                            <h4 className={styles.suggestionTitle}>Popular Categories</h4>
+                                            <ul className={styles.suggestionList}>
+                                                {categories.slice(0, 4).map(cat => (
+                                                    <li key={cat} className={styles.suggestionItem} onClick={() => handleSuggestionClick(cat)}>
+                                                        {cat}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         )}
                     </div>
