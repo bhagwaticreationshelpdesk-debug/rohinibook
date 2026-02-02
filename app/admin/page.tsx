@@ -23,7 +23,8 @@ import {
     Eye,
     AlertTriangle,
     CheckCircle2,
-    RefreshCw
+    RefreshCw,
+    Lock
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAppContext, Product, Order } from '../context/AppContext';
@@ -39,6 +40,14 @@ export default function AdminPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<Product | null>(null);
     const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' } | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loginError, setLoginError] = useState("");
+
+    // Check auth on mount
+    useEffect(() => {
+        const auth = sessionStorage.getItem('admin_auth');
+        if (auth === 'true') setIsAuthenticated(true);
+    }, []);
 
     // Auto-hide notification
     useEffect(() => {
@@ -106,6 +115,117 @@ export default function AdminPage() {
         setIsModalOpen(false);
     };
 
+    const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const user = formData.get('username');
+        const pass = formData.get('password');
+
+        if (user === 'admin' && pass === 'admin123') {
+            setIsAuthenticated(true);
+            sessionStorage.setItem('admin_auth', 'true');
+            setLoginError("");
+        } else {
+            setLoginError("Invalid credentials. Please try again.");
+        }
+    };
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        sessionStorage.removeItem('admin_auth');
+    };
+
+    if (!isAuthenticated) {
+        return (
+            <div className="loginContainer" style={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#f8fafc',
+                padding: '2rem'
+            }}>
+                <div className="loginCard" style={{
+                    background: 'white',
+                    padding: '3.5rem',
+                    borderRadius: '32px',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.08)',
+                    width: '100%',
+                    maxWidth: '420px',
+                    textAlign: 'center',
+                    border: '1px solid #e2e8f0'
+                }}>
+                    <div style={{
+                        width: '72px',
+                        height: '72px',
+                        background: '#fee2e2',
+                        color: '#E42B26',
+                        borderRadius: '20px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '0 auto 1.5rem'
+                    }}>
+                        <Lock size={32} />
+                    </div>
+                    <h1 style={{ fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem', fontSize: '2rem' }}>Admin Access</h1>
+                    <p style={{ color: '#64748b', marginBottom: '2.5rem', fontSize: '0.95rem' }}>Secure gateway for Rohini Book Depot</p>
+
+                    <form onSubmit={handleLogin} style={{ textAlign: 'left' }}>
+                        <div style={{ marginBottom: '1.25rem' }}>
+                            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Username</label>
+                            <input
+                                name="username"
+                                type="text"
+                                placeholder="Enter username"
+                                required
+                                style={{
+                                    width: '100%',
+                                    padding: '0.9rem 1.1rem',
+                                    borderRadius: '14px',
+                                    border: '1px solid #e2e8f0',
+                                    outline: 'none',
+                                    fontSize: '1rem'
+                                }}
+                            />
+                        </div>
+                        <div style={{ marginBottom: '1.75rem' }}>
+                            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Password</label>
+                            <input
+                                name="password"
+                                type="password"
+                                placeholder="••••••••"
+                                required
+                                style={{
+                                    width: '100%',
+                                    padding: '0.9rem 1.1rem',
+                                    borderRadius: '14px',
+                                    border: '1px solid #e2e8f0',
+                                    outline: 'none',
+                                    fontSize: '1rem'
+                                }}
+                            />
+                        </div>
+                        {loginError && <p style={{ color: '#ef4444', fontSize: '0.85rem', fontWeight: 600, marginBottom: '1.25rem', textAlign: 'center' }}>{loginError}</p>}
+                        <button type="submit" style={{
+                            width: '100%',
+                            padding: '1.1rem',
+                            background: '#0f172a',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '16px',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            fontSize: '1.05rem'
+                        }}>Unlock Dashboard</button>
+                    </form>
+                    <Link href="/" style={{ display: 'inline-block', marginTop: '2.5rem', color: '#94a3b8', fontSize: '0.9rem', textDecoration: 'none', fontWeight: 600 }}>← Return to Store</Link>
+                </div>
+            </div>
+        );
+    }
+
     const handleDelete = (id: string, title: string) => {
         if (confirm(`Are you sure you want to delete "${title}"?`)) {
             deleteProduct(id);
@@ -166,7 +286,7 @@ export default function AdminPage() {
                             <span className="userRole">Superuser</span>
                         </div>
                     </div>
-                    <button className="logoutBtn">
+                    <button className="logoutBtn" onClick={handleLogout}>
                         <LogOut size={18} />
                         <span>Sign Out</span>
                     </button>
